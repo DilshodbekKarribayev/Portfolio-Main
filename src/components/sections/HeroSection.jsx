@@ -1,16 +1,46 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { Link } from 'react-router-dom'
-import { Layers3, MapPin } from 'lucide-react'
+import { Layers3, MapPin, RefreshCw } from 'lucide-react'
 import { fadeUp } from '../../lib/animations'
 import Particles from '../ui/Particles'
 
 const MotionSection = motion.section
 const MotionH1 = motion.h1
 const MotionDiv = motion.div
+const RELOAD_COUNTER_KEY = 'diliable-reload-count'
+let reloadCounterIncremented = false
+
+function getStoredReloadCount() {
+  try {
+    const storedCount = window.localStorage.getItem(RELOAD_COUNTER_KEY)
+    return Number.parseInt(storedCount || '0', 10) || 0
+  } catch {
+    return 0
+  }
+}
+
+function getInitialReloadCount() {
+  if (typeof window === 'undefined') return 0
+
+  const currentCount = getStoredReloadCount()
+  if (reloadCounterIncremented) return currentCount
+
+  reloadCounterIncremented = true
+  const nextCount = currentCount + 1
+
+  try {
+    window.localStorage.setItem(RELOAD_COUNTER_KEY, String(nextCount))
+  } catch {
+    return nextCount
+  }
+
+  return nextCount
+}
 
 function HeroSection() {
   const sectionRef = useRef(null)
+  const [reloadCount] = useState(getInitialReloadCount)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -89,6 +119,14 @@ function HeroSection() {
               >
                 Get in touch
               </Link>
+            </div>
+
+            <div className="hero-reload-counter mt-7" aria-label={`Reload count ${reloadCount}`}>
+              <span className="hero-reload-icon" aria-hidden="true">
+                <RefreshCw size={13} />
+              </span>
+              <span className="hero-reload-label">Reload count</span>
+              <span className="hero-reload-value">{String(reloadCount).padStart(3, '0')}</span>
             </div>
           </MotionDiv>
         </div>
