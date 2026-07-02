@@ -74,7 +74,7 @@ npm run preview
 Create `.env`:
 
 ```env
-VITE_GITHUB_USERNAME=XayrulloWeb
+VITE_GITHUB_USERNAME=DiliAble
 ```
 
 Notes:
