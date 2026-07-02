@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react'
+import { publicAsset } from '../../lib/publicAsset'
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)'
 
@@ -28,9 +29,9 @@ if (typeof document !== 'undefined' && !document.getElementById(KEYFRAMES_ID)) {
 }
 
 const ProfileCardComponent = ({
-  avatarUrl = '/assets/demo/diliable-avatar.svg',
-  iconUrl = '/assets/demo/iconpattern.svg',
-  grainUrl = '/assets/demo/grain.svg',
+  avatarUrl = publicAsset('/assets/demo/diliable-avatar.svg'),
+  iconUrl = publicAsset('/assets/demo/iconpattern.svg'),
+  grainUrl = publicAsset('/assets/demo/grain.svg'),
   innerGradient,
   behindGlowEnabled = true,
   behindGlowColor,

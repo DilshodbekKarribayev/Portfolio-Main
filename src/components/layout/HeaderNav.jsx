@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { navItems } from '../../data/siteData'
+import { publicAsset } from '../../lib/publicAsset'
 import NavPill from '../ui/NavPill'
 import Magnetic from '../ui/Magnetic'
 
@@ -112,7 +113,7 @@ function HeaderNav() {
           onClick={handleLogoClick}
           className="inline-flex items-center gap-2.5 rounded-full border border-zinc-700/80 bg-zinc-950/80 px-4 py-2 text-sm font-bold tracking-wide text-zinc-100 shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl transition hover:border-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
         >
-          <img src="/brand/diliable-mark.svg" alt="" className="h-5 w-5 shrink-0" />
+          <img src={publicAsset('/brand/diliable-mark.svg')} alt="" className="h-5 w-5 shrink-0" />
           <span className="tracking-[-0.02em]">DiliAble</span>
         </button>
 

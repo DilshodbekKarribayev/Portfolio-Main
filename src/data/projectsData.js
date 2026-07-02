@@ -3,6 +3,8 @@
 // Example:
 // gallery: [{ key: 'shot-1', title: 'Main', assetHint: '/projects/yourphoto.jpg' }]
 
+import { publicAsset } from '../lib/publicAsset'
+
 export const projects = [
   {
     id: 'exammorse',
@@ -22,10 +24,10 @@ export const projects = [
     problem: 'Need for an accessible online tool to practice and test Morse code skills.',
     outcome: 'Created a responsive and interactive web app for Morse education.',
     features: ['Interactive Morse code testing', 'Responsive design', 'Progress tracking'],
-    deviceScreens: { desktop: '/projects/exam-morse.png' },
+    deviceScreens: { desktop: publicAsset('/projects/exam-morse.png') },
     responsibilities: ['Frontend implementation', 'Business logic integration'],
     process: ['Requirement analysis', 'UI Design', 'Development', 'Deployment'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/exam-morse.png' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/exam-morse.png') }],
     tags: ['Web', 'HTML', 'CSS', 'JavaScript']
   },
   {
@@ -46,10 +48,10 @@ export const projects = [
     problem: 'Lack of dedicated and easy-to-use digital resources for Urdu education.',
     outcome: 'Delivered an intuitive platform that improves the learning experience.',
     features: ['Educational resource management', 'Interactive learning tools'],
-    deviceScreens: { desktop: '/projects/teacher-urdu.png' },
+    deviceScreens: { desktop: publicAsset('/projects/teacher-urdu.png') },
     responsibilities: ['UI/UX Implementation', 'Frontend Development'],
     process: ['Design', 'Development', 'QA'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/teacher-urdu.png' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/teacher-urdu.png') }],
     tags: ['Education', 'Web', 'Frontend']
   },
   {
@@ -70,10 +72,10 @@ export const projects = [
     problem: 'Need for a modern, fast, and reliable web presence.',
     outcome: 'A performant web application with great user experience.',
     features: ['Modern UI', 'Responsive Design', 'Optimized Performance'],
-    deviceScreens: { desktop: '/projects/catelniom.png' },
+    deviceScreens: { desktop: publicAsset('/projects/catelniom.png') },
     responsibilities: ['Full stack architecture', 'Deployment'],
     process: ['Planning', 'Development', 'Testing'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/catelniom.png' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/catelniom.png') }],
     tags: ['Web', 'Innovation']
   },
   {
@@ -94,12 +96,12 @@ export const projects = [
     problem: 'Engineering a reliable hardware solution for a physical problem.',
     outcome: 'Successfully prototyped and tested the hardware unit.',
     features: ['Microcontroller integration', 'Sensor data processing'],
-    deviceScreens: { desktop: '/projects/hardware1.png' },
+    deviceScreens: { desktop: publicAsset('/projects/hardware1.png') },
     responsibilities: ['Circuit design', 'C/C++ programming', 'Assembly'],
     process: ['Prototyping', 'Coding', 'Testing'],
     gallery: [
-      { key: 'shot-1', title: 'Main view', src: '/projects/hardware1.png' },
-      { key: 'shot-2', title: 'Detail', src: '/projects/hard1.jpg' }
+      { key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hardware1.png') },
+      { key: 'shot-2', title: 'Detail', src: publicAsset('/projects/hard1.jpg') }
     ],
     tags: ['Hardware', 'Arduino', 'Embedded']
   },
@@ -121,10 +123,10 @@ export const projects = [
     problem: 'Building an automated system for efficiency.',
     outcome: 'A working physical prototype demonstrating the concept.',
     features: ['Automation', 'Logic control'],
-    deviceScreens: { desktop: '/projects/hard2.jpg' },
+    deviceScreens: { desktop: publicAsset('/projects/hard2.jpg') },
     responsibilities: ['Hardware design', 'Programming'],
     process: ['Design', 'Implementation'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/hard2.jpg' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard2.jpg') }],
     tags: ['Hardware', 'Electronics']
   },
   {
@@ -145,10 +147,10 @@ export const projects = [
     problem: 'Connecting physical devices to data streams.',
     outcome: 'Established reliable data transmission from hardware.',
     features: ['IoT', 'Data transmission'],
-    deviceScreens: { desktop: '/projects/hard3.jpg' },
+    deviceScreens: { desktop: publicAsset('/projects/hard3.jpg') },
     responsibilities: ['IoT setup', 'Hardware build'],
     process: ['Architecture', 'Assembly'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/hard3.jpg' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard3.jpg') }],
     tags: ['IoT', 'Hardware']
   },
   {
@@ -169,10 +171,10 @@ export const projects = [
     problem: 'Designing a smart product from scratch.',
     outcome: 'A functional, well-designed hardware piece.',
     features: ['Smart logic', 'Creative design'],
-    deviceScreens: { desktop: '/projects/hard4.jpg' },
+    deviceScreens: { desktop: publicAsset('/projects/hard4.jpg') },
     responsibilities: ['End-to-end development'],
     process: ['Ideation', 'Execution'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: '/projects/hard4.jpg' }],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard4.jpg') }],
     tags: ['Engineering', 'Design']
   }
 ]

@@ -9,15 +9,16 @@ import {
   Twitter,
 } from 'lucide-react'
 import { fadeUp } from '../../lib/animations'
+import { publicAsset } from '../../lib/publicAsset'
 import { socialLinks } from '../../data/siteData'
 import TinyChip from '../ui/TinyChip'
 import TiltCard from '../ui/TiltCard'
 import { Globe } from '../ui/globe'
 import DevicesMockup from '../ui/DevicesMockup'
 // To add your own images, place them in public/projects/ and reference them below:
-const project1Phone = "/projects/exam-morse.png"
-const project2Phone = "/projects/teacher-urdu.png"
-const project3Phone = "/projects/catelniom.png"
+const project1Phone = publicAsset('/projects/exam-morse.png')
+const project2Phone = publicAsset('/projects/teacher-urdu.png')
+const project3Phone = publicAsset('/projects/catelniom.png')
 
 const MotionSection = motion.section
 const MotionDiv = motion.div
@@ -92,7 +93,7 @@ function TopCardsSection() {
         <TiltCard className="glass-card flex flex-col items-center py-8 text-center" intensity={6}>
           <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full border-2 border-zinc-700 bg-gradient-to-br from-zinc-800 to-zinc-900">
             <img
-              src="/brand/diliable-mark.svg"
+              src={publicAsset('/brand/diliable-mark.svg')}
               alt="DiliAble logo"
               className="h-14 w-14 object-contain"
               loading="eager"

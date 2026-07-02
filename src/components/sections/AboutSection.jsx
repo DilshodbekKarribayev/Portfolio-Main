@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, Code2, Cpu, Zap, Linkedin, Github, Twitter } from 'lucide-react'
 import { aboutText, socialLinks } from '../../data/siteData'
 import { fadeUp, staggerContainer, fadeUpChild } from '../../lib/animations'
+import { publicAsset } from '../../lib/publicAsset'
 import ProfileCard from '../ui/ProfileCard'
 import SplitReveal from '../ui/SplitReveal'
 // Place your avatar image in public/brand/ and reference it like '/brand/avatar.jpg'
@@ -103,13 +104,13 @@ function AboutSection() {
                 handle="karribayev_004"
                 status="Available for new projects"
                 contactText="Contact Me"
-                avatarUrl="/portfolioPhoto.jpg"
+                avatarUrl={publicAsset('/portfolioPhoto.jpg')}
                 showUserInfo={true}
                 enableTilt={true}
                 enableMobileTilt={false}
                 onContactClick={handleProfileContact}
                 behindGlowColor="rgba(125, 190, 255, 0.67)"
-                iconUrl="/assets/demo/iconpattern.svg"
+                iconUrl={publicAsset('/assets/demo/iconpattern.svg')}
                 behindGlowEnabled={true}
                 innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
               />
