@@ -1,0 +1,30 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="xayrusha-mark-stroke" x1="28" y1="24" x2="99" y2="102" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="0.6" stop-color="#E5E7EB"/>
+      <stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="xayrusha-mark-glow" x1="22" y1="18" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="0.52" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path
+      d="M29 28H47.5L64 51.2L80.5 28H99L73.35 64L99 100H80.5L64 76.8L47.5 100H29L54.65 64L29 28Z"
+      fill="url(#xayrusha-mark-stroke)"
+    />
+    <path
+      d="M35 28H47.5L64 51.2L80.5 28H93"
+      stroke="url(#xayrusha-mark-glow)"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      opacity="0.45"
+    />
+    <circle cx="95" cy="31" r="7.5" fill="#F59E0B"/>
+    <circle cx="95" cy="31" r="11.5" stroke="#F59E0B" stroke-opacity="0.2"/>
+  </g>
+</svg>

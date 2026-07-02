@@ -1,0 +1,38 @@
+<svg width="512" height="128" viewBox="0 0 512 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="diliable-lockup-shell" x1="24" y1="18" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="0.48" stop-color="#DCE7F4"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </linearGradient>
+    <linearGradient id="diliable-lockup-accent" x1="48" y1="28" x2="92" y2="99" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="diliable-lockup-text" x1="132" y1="35" x2="314" y2="87" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+  </defs>
+  <path
+    d="M22 24H57.5C81.5 24 101 41.8 101 64C101 86.2 81.5 104 57.5 104H22V24Z"
+    fill="url(#diliable-lockup-shell)"
+  />
+  <path d="M40 42V86H57.5C70.9 86 82 76.1 82 64C82 51.9 70.9 42 57.5 42H40Z" fill="#07090D"/>
+  <path
+    d="M52 91L69 38L86 91"
+    stroke="url(#diliable-lockup-accent)"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path d="M61.5 70H77.5" stroke="#F8FAFC" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="93" cy="35" r="7" fill="#22D3EE"/>
+  <circle cx="93" cy="35" r="12" stroke="#22D3EE" stroke-opacity="0.22"/>
+  <text x="132" y="61" fill="url(#diliable-lockup-text)" font-size="36" font-weight="850" font-family="Geist, Sora, system-ui, sans-serif" letter-spacing="-0.04em">
+    DiliAble
+  </text>
+  <text x="134" y="88" fill="#8C98AB" font-size="12" font-weight="650" font-family="Geist, Sora, system-ui, sans-serif" letter-spacing="0.26em">
+    FULL STACK TECHNOLOGY ENGINEER
+  </text>
+</svg>

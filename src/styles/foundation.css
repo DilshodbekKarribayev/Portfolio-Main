@@ -1,0 +1,97 @@
+﻿@custom-variant dark (&:is(.dark *));
+
+:root {
+  --bg-base: #07090d;
+  --bg-elev-1: #0f141c;
+  --bg-elev-2: #141b25;
+  --text-main: #edf1f6;
+  --text-muted: #a4afbe;
+  --line: rgba(180, 194, 212, 0.25);
+  --line-strong: rgba(180, 194, 212, 0.4);
+  --accent-warm: #f59e0b;
+  --accent-cool: #38bdf8;
+  color-scheme: dark;
+  font-family: 'Sora', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--text-main);
+  background:
+    radial-gradient(60rem 60rem at 10% -10%, rgba(56, 189, 248, 0.1), transparent 52%),
+    radial-gradient(50rem 50rem at 88% 2%, rgba(245, 158, 11, 0.12), transparent 48%),
+    radial-gradient(40rem 40rem at 70% 90%, rgba(244, 63, 94, 0.08), transparent 50%),
+    linear-gradient(180deg, #07090d 0%, #070a10 55%, #06080d 100%);
+  cursor: auto;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.cursor-none-active,
+.cursor-none-active * {
+  cursor: none !important;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(228, 228, 231, 0.9);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.9);
+  color: #0b0c10;
+}
+
+.font-script {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+

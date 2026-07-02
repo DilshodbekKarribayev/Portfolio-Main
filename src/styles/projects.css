@@ -1,0 +1,765 @@
+﻿.pj-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Ambient glow */
+.pj-glow-orb {
+  position: absolute;
+  right: 15%;
+  top: 40%;
+  z-index: 0;
+  width: min(60%, 520px);
+  height: min(60%, 520px);
+  transform: translate(20%, -40%);
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Split layout вЂ” info left, devices right */
+.pj-split {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+  gap: 0;
+}
+
+@media (min-width: 1024px) {
+  .pj-split {
+    grid-template-columns: minmax(0, 0.44fr) 92px minmax(0, 0.56fr);
+    align-items: start;
+  }
+}
+
+/* Left info panel */
+.pj-info {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 80px 32px 32px;
+}
+
+@media (min-width: 1024px) {
+  .pj-info {
+    padding: 40px 48px 40px 44px;
+    min-height: 100vh;
+  }
+}
+
+.pj-info-inner {
+  width: 100%;
+  max-width: 480px;
+}
+
+.pj-progress-shell {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .pj-progress-shell {
+    --pj-progress: 0;
+    --pj-accent: #f97316;
+    --pj-accent-glow: rgba(249, 115, 22, 0.22);
+    position: relative;
+    z-index: 14;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+}
+
+.pj-progress-panel {
+  width: 72px;
+  border: 1px solid rgba(132, 147, 168, 0.18);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(13, 17, 25, 0.86), rgba(9, 12, 18, 0.74)),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.06), transparent 52%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 48px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.pj-progress-meta,
+.pj-progress-status {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+}
+
+.pj-progress-meta {
+  border-bottom: 1px solid rgba(132, 147, 168, 0.1);
+}
+
+.pj-progress-label,
+.pj-progress-status-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(158, 170, 187, 0.5);
+}
+
+.pj-progress-value {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: rgba(236, 241, 246, 0.92);
+}
+
+.pj-progress-track {
+  position: relative;
+  margin: 0 auto;
+  height: 188px;
+  width: 32px;
+}
+
+.pj-progress-line,
+.pj-progress-fill {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 2px;
+  height: calc(100% - 20px);
+  transform: translateX(-50%);
+  border-radius: 999px;
+}
+
+.pj-progress-line {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03));
+}
+
+.pj-progress-fill {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pj-accent) 82%, white 18%), var(--pj-accent));
+  transform: translateX(-50%) scaleY(var(--pj-progress));
+  transform-origin: top center;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pj-accent) 34%, transparent),
+    0 0 18px color-mix(in srgb, var(--pj-accent) 34%, transparent);
+}
+
+.pj-progress-knob {
+  position: absolute;
+  left: 50%;
+  top: calc(10px + (var(--pj-progress) * (100% - 20px)));
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: color-mix(in srgb, var(--pj-accent) 88%, white 12%);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--pj-accent) 14%, transparent),
+    0 0 24px color-mix(in srgb, var(--pj-accent) 26%, transparent);
+}
+
+.pj-progress-tick {
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateX(-50%);
+}
+
+.pj-progress-tick-top {
+  top: 28px;
+}
+
+.pj-progress-tick-middle {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pj-progress-tick-bottom {
+  bottom: 28px;
+}
+
+.pj-progress-shell[data-step='desktop'] .pj-progress-tick-top {
+  border-color: color-mix(in srgb, var(--pj-accent) 44%, rgba(255, 255, 255, 0.2));
+  background: color-mix(in srgb, var(--pj-accent) 72%, rgba(255, 255, 255, 0.18));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pj-accent) 24%, transparent);
+}
+
+.pj-progress-status {
+  border-top: 1px solid rgba(132, 147, 168, 0.1);
+}
+
+.pj-progress-status-value {
+  max-width: 54px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: rgba(219, 227, 236, 0.76);
+}
+
+/* Number badge */
+.pj-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  border: 2px solid;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.02em;
+  background: rgba(7, 9, 13, 0.7);
+}
+
+/* 3D Device stage вЂ” right side */
+.pj-device-stage {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2400px;
+  transform-style: preserve-3d;
+  min-height: 50vh;
+  padding: 40px 24px;
+}
+
+@media (min-width: 1024px) {
+  .pj-device-stage {
+    align-self: start;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: 60px 40px;
+  }
+}
+
+.pj-device {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+.pj-device-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* Watermark вЂ” inside device stage */
+.pj-watermark {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+  font-size: clamp(10rem, 20vw, 22rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Device indicators вЂ” inside info panel */
+.pj-indicators {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pj-indicator-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(130, 147, 169, 0.28);
+  background: rgba(7, 9, 13, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(180, 194, 212, 0.5);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Rune showcase */
+.rune-card {
+  isolation: isolate;
+}
+
+.rune-side-glow {
+  position: absolute;
+  top: 28%;
+  width: 180px;
+  height: 180px;
+  z-index: 3;
+  pointer-events: none;
+  filter: blur(38px);
+  opacity: 0.34;
+}
+
+.rune-side-glow-left {
+  left: -54px;
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.36), transparent 68%);
+}
+
+.rune-side-glow-right {
+  right: -54px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.34), transparent 68%);
+}
+
+.rune-orbit {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  z-index: 4;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.rune-orbit-outer {
+  width: min(88%, 470px);
+  height: min(88%, 470px);
+  opacity: 0.34;
+  animation: rune-orbit-spin 30s linear infinite;
+}
+
+.rune-orbit-inner {
+  width: min(68%, 360px);
+  height: min(68%, 360px);
+  opacity: 0.22;
+  animation: rune-orbit-spin 22s linear infinite reverse;
+}
+
+.rune-ambient {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.rune-ambient-a {
+  background:
+    radial-gradient(circle at 25% 30%, rgba(59, 130, 246, 0.22), transparent 42%),
+    radial-gradient(circle at 68% 48%, rgba(244, 114, 182, 0.12), transparent 40%);
+  animation: rune-glow-drift 13s ease-in-out infinite alternate;
+}
+
+.rune-ambient-b {
+  background:
+    radial-gradient(circle at 62% 68%, rgba(245, 158, 11, 0.14), transparent 42%),
+    radial-gradient(circle at 40% 28%, rgba(45, 212, 191, 0.1), transparent 38%);
+  animation: rune-glow-drift 16s ease-in-out infinite reverse;
+}
+
+.rune-specular {
+  position: absolute;
+  top: -25%;
+  left: -45%;
+  width: 42%;
+  height: 165%;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(16deg) translateX(-120%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.17) 42%,
+    rgba(255, 255, 255, 0)
+  );
+  filter: blur(2px);
+  transition: transform 0.8s ease, opacity 0.35s ease;
+}
+
+.rune-card:hover .rune-specular {
+  opacity: 1;
+  transform: rotate(16deg) translateX(250%);
+}
+
+.rune-hud {
+  position: absolute;
+  z-index: 35;
+  border-radius: 9999px;
+  border: 1px solid rgba(122, 141, 165, 0.42);
+  background: rgba(8, 11, 16, 0.78);
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #becce0;
+  backdrop-filter: blur(10px);
+  --hud-x: 0;
+  --hud-y: 0;
+  transform: translate(var(--hud-x), var(--hud-y));
+  animation: rune-hud-float 6s ease-in-out infinite;
+}
+
+.rune-hud-top-left {
+  top: 128px;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.rune-hud-top-right {
+  top: 128px;
+  right: 8%;
+  color: #fcb168;
+  border-color: rgba(245, 158, 11, 0.44);
+  animation-delay: 1s;
+}
+
+.rune-hud-bottom {
+  bottom: 58px;
+  left: 50%;
+  --hud-x: -50%;
+  animation-delay: 2s;
+}
+
+.rune-fan {
+  position: absolute;
+  left: 50%;
+  bottom: -132px;
+  z-index: 24;
+  height: 340px;
+  width: min(92%, 450px);
+  transform: translateX(-50%);
+}
+
+.rune-label-row {
+  position: absolute;
+  left: 50%;
+  top: 58px;
+  z-index: 34;
+  width: min(92%, 450px);
+  height: 32px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.rune-project-label {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  border-radius: 9999px;
+  border: 1px solid rgba(130, 147, 169, 0.38);
+  background: rgba(8, 11, 16, 0.78);
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d6deea;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateX(-50%);
+}
+
+.rune-project-label-left {
+  left: 29%;
+  color: #f0a3c5;
+  border-color: rgba(244, 114, 182, 0.35);
+}
+
+.rune-project-label-main {
+  left: 50%;
+  color: #a8f5ee;
+  border-color: rgba(45, 212, 191, 0.35);
+}
+
+.rune-project-label-right {
+  left: 71%;
+  color: #d6b0ff;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.rune-phone {
+  position: absolute;
+  transition: transform 0.55s ease, opacity 0.45s ease;
+}
+
+.rune-phone-left {
+  left: 36%;
+  bottom: 14px;
+  z-index: 16;
+  opacity: 0.88;
+  transform: translateX(-50%) rotate(-16deg);
+  transform-origin: 56% 100%;
+}
+
+.rune-phone-right {
+  left: 64%;
+  bottom: 14px;
+  z-index: 16;
+  opacity: 0.88;
+  transform: translateX(-50%) rotate(16deg);
+  transform-origin: 44% 100%;
+}
+
+.rune-phone-main {
+  left: 50%;
+  bottom: 0;
+  z-index: 28;
+  transform: translateX(-50%);
+}
+
+.rune-card:hover .rune-phone-left {
+  opacity: 0.95;
+  transform: translateX(calc(-50% - 6px)) rotate(-18deg);
+}
+
+.rune-card:hover .rune-phone-right {
+  opacity: 0.95;
+  transform: translateX(calc(-50% + 6px)) rotate(18deg);
+}
+
+.rune-card:hover .rune-phone-main {
+  transform: translateX(-50%) scale(1.03);
+}
+
+.rune-card:hover .rune-side-glow {
+  opacity: 0.5;
+}
+
+.rune-card:hover .rune-orbit-outer {
+  opacity: 0.45;
+}
+
+.rune-card:hover .rune-orbit-inner {
+  opacity: 0.28;
+}
+
+@keyframes rune-glow-drift {
+  0% {
+    transform: translate3d(-8%, -4%, 0) scale(1);
+    opacity: 0.38;
+  }
+  50% {
+    transform: translate3d(2%, 3%, 0) scale(1.06);
+    opacity: 0.52;
+  }
+  100% {
+    transform: translate3d(8%, 7%, 0) scale(1.02);
+    opacity: 0.42;
+  }
+}
+
+@keyframes rune-hud-float {
+  0%,
+  100% {
+    transform: translate(var(--hud-x), var(--hud-y));
+  }
+  50% {
+    transform: translate(var(--hud-x), calc(var(--hud-y) - 5px));
+  }
+}
+
+@keyframes rune-orbit-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1120px) {
+  .glass-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .footer-panel {
+    padding: 24px;
+  }
+
+  .footer-ring {
+    height: 132px;
+    width: 132px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .red-ribbon {
+    transform: rotate(-1.2deg) scale(1.03);
+  }
+
+  .pj-stage {
+    border-radius: 24px;
+    min-height: 90vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: clamp(3.5rem, 18vw, 7rem);
+    letter-spacing: 0;
+  }
+
+  .hero-script {
+    font-size: clamp(1.7rem, 8vw, 3rem);
+  }
+
+  .footer-cta {
+    font-size: clamp(2.2rem, 12vw, 4.4rem);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .pj-stage {
+    min-height: auto;
+    border-radius: 22px;
+  }
+
+  .pj-progress-shell {
+    display: none;
+  }
+
+  .pj-watermark {
+    font-size: clamp(6rem, 18vw, 10rem);
+  }
+
+  .pj-info {
+    padding: 60px 20px 24px;
+  }
+
+  .pj-device-stage {
+    min-height: 46vh;
+    padding: 20px 16px;
+  }
+
+  .pj-glow-orb {
+    width: min(100%, 320px);
+    height: min(100%, 320px);
+  }
+
+  .marquee-track span {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+
+  .rune-fan {
+    bottom: -108px;
+    width: min(96%, 390px);
+  }
+
+  .rune-side-glow {
+    width: 130px;
+    height: 130px;
+    top: 34%;
+  }
+
+  .rune-orbit-outer {
+    width: min(96%, 390px);
+    height: min(96%, 390px);
+    top: 58%;
+  }
+
+  .rune-orbit-inner {
+    width: min(74%, 300px);
+    height: min(74%, 300px);
+    top: 58%;
+  }
+
+  .rune-label-row {
+    top: 54px;
+    width: min(96%, 390px);
+  }
+
+  .rune-project-label {
+    padding: 3px 8px;
+    font-size: 9px;
+    letter-spacing: 0.07em;
+  }
+
+  .rune-project-label-left {
+    left: 30%;
+  }
+
+  .rune-project-label-right {
+    left: 70%;
+  }
+
+  .rune-hud-top-left {
+    top: 118px;
+  }
+
+  .rune-hud-top-right {
+    top: 118px;
+  }
+
+  .rune-phone-left {
+    left: 34%;
+    transform: translateX(-50%) rotate(-14deg);
+  }
+
+  .rune-phone-right {
+    left: 66%;
+    transform: translateX(-50%) rotate(14deg);
+  }
+}
+
+@media (max-width: 540px) {
+  .glass-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .skill-chip {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pj-progress-shell {
+    display: none !important;
+  }
+}
+

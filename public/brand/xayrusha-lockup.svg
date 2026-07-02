@@ -1,0 +1,41 @@
+<svg width="512" height="128" viewBox="0 0 512 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lockup-x-stroke" x1="26" y1="24" x2="98" y2="103" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="0.6" stop-color="#E5E7EB"/>
+      <stop offset="1" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="lockup-x-glow" x1="22" y1="18" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="0.52" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="lockup-text" x1="144" y1="36" x2="332" y2="108" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#D4D9E1"/>
+    </linearGradient>
+  </defs>
+  <path
+    d="M29 28H47.5L64 51.2L80.5 28H99L73.35 64L99 100H80.5L64 76.8L47.5 100H29L54.65 64L29 28Z"
+    fill="url(#lockup-x-stroke)"
+  />
+  <path
+    d="M35 28H47.5L64 51.2L80.5 28H93"
+    stroke="url(#lockup-x-glow)"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.45"
+  />
+  <circle cx="95" cy="31" r="7.5" fill="#F59E0B"/>
+  <circle cx="95" cy="31" r="11.5" stroke="#F59E0B" stroke-opacity="0.2"/>
+  <text x="132" y="58" fill="url(#lockup-text)" font-size="34" font-weight="800" font-family="Geist, Sora, system-ui, sans-serif" letter-spacing="-0.04em">
+    Xayrusha
+  </text>
+  <text x="321" y="58" fill="#F5F7FA" font-size="22" font-weight="700" font-family="Geist, Sora, system-ui, sans-serif" letter-spacing="-0.02em">
+    .dev
+  </text>
+  <text x="134" y="84" fill="#8C98AB" font-size="12" font-weight="600" font-family="Geist, Sora, system-ui, sans-serif" letter-spacing="0.28em">
+    FRONTEND FOCUSED FULL STACK
+  </text>
+</svg>

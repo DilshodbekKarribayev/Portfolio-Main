@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 1060">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="48%" stop-color="#161224"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="28%" cy="18%" r="60%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="74%" cy="72%" r="48%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="760" height="1060" rx="46" fill="url(#bg)"/>
+  <rect width="760" height="1060" rx="46" fill="url(#glowA)"/>
+  <rect width="760" height="1060" rx="46" fill="url(#glowB)"/>
+  <g opacity="0.1" stroke="#ffffff">
+    <path d="M0 170H760M0 340H760M0 510H760M0 680H760M0 850H760"/>
+    <path d="M126 0V1060M253 0V1060M380 0V1060M507 0V1060M634 0V1060"/>
+  </g>
+  <circle cx="380" cy="388" r="130" fill="#ffffff" fill-opacity="0.08"/>
+  <path d="M220 810c28-120 92-200 160-200s132 80 160 200" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="380" y="472" text-anchor="middle" fill="#ffffff" fill-opacity="0.96" font-size="200" font-family="Sora, Arial, sans-serif" font-weight="800">XR</text>
+  <text x="64" y="94" fill="#ffffff" fill-opacity="0.8" font-size="28" font-family="Sora, Arial, sans-serif" letter-spacing="8">XAYRUSHA</text>
+  <text x="64" y="966" fill="#ffffff" fill-opacity="0.74" font-size="28" font-family="Sora, Arial, sans-serif">Frontend-focused Full Stack</text>
+  <text x="64" y="1012" fill="#9ad7ff" fill-opacity="0.85" font-size="24" font-family="Sora, Arial, sans-serif">@xayrusha</text>
+</svg>
