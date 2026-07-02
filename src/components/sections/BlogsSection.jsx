@@ -6,27 +6,75 @@ const MotionSection = motion.section
 
 const experienceTimeline = [
   {
-    id: 'tuit',
+    id: 'foundation-data-analyst',
     label: 'Foundation',
-    organization: 'Tashkent University of Information Technologies, Urgench Branch',
-    period: 'Apr 2024 - Jul 2025',
-    location: 'Urgench, Uzbekistan',
+    organization: 'Innovation Company',
+    role: 'Trainee Data Analyst',
+    period: 'Nov 2021 - Aug 2022',
+    location: 'Uzbekistan',
     points: [
-      'Worked on academic and practical web development tasks.',
-      'Strengthened frontend development skills through hands-on projects.',
-      'Built experience with modern web technologies, interface development, and project workflow.',
-      'Improved practical knowledge of building responsive and functional web applications.',
+      'Started as a Data Analytics trainee.',
+      'Learned SQL, database management, and business reporting.',
+      'Worked with real datasets and analytical tasks.',
+      'Built practical experience in data processing and visualization.',
     ],
   },
   {
-    id: 'unusual',
-    label: 'Current',
-    organization: 'Unusual',
-    period: 'Aug 2025 - Present',
+    id: 'promotion-senior-data-analyst',
+    label: 'Promotion',
+    organization: 'Innovation Company',
+    role: 'Senior Data Analyst',
+    period: 'Sep 2022 - Mar 2023',
     location: 'Uzbekistan',
     points: [
-      'Currently working on real product tasks and frontend delivery.',
-      'Continuing practical development of responsive interfaces and production workflows.',
+      'Promoted to Senior Data Analyst.',
+      'Developed SQL queries for business reporting.',
+      'Designed interactive dashboards using Power BI.',
+      'Improved data quality and reporting efficiency.',
+      'Collaborated with teams to support business decisions.',
+    ],
+  },
+  {
+    id: 'industry-mdf-manufacturing',
+    label: 'Industry Experience',
+    organization: 'MDF Door Manufacturing',
+    role: 'Production & Technical Specialist',
+    period: 'Jan 2026 - Jul 2026',
+    location: 'Uzbekistan',
+    points: [
+      'Worked in modern MDF door manufacturing.',
+      'Participated in production planning and quality control.',
+      'Gained practical experience with manufacturing equipment.',
+      'Improved workflow efficiency and technical processes.',
+      'Strengthened knowledge of industrial production systems.',
+    ],
+  },
+  {
+    id: 'current-tuit',
+    label: 'Current',
+    organization: 'Tashkent University of Information Technologies (TUIT), Urgench Branch',
+    role: 'Telecommunications Engineering Student',
+    period: '2022 - Present',
+    location: 'Urgench, Uzbekistan',
+    points: [
+      'Studying Telecommunications Technologies.',
+      'Developing embedded systems and hardware solutions.',
+      'Building web applications and engineering projects.',
+      'Participating in startup competitions and innovation programs.',
+      'Expanding knowledge in networking, IoT, automation, and product development.',
+    ],
+  },
+  {
+    id: 'achievement-startup-winner',
+    label: 'Achievement',
+    organization: 'National Startup Competition',
+    role: 'Winner',
+    period: '2025',
+    location: 'Uzbekistan',
+    points: [
+      'Developed an innovative technology project.',
+      'Presented the solution before a national jury.',
+      'Successfully became a national-level winner.',
     ],
   },
 ]
@@ -55,7 +103,7 @@ function BlogsSection() {
             Experience
           </div>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400 sm:text-base">
-            Clear vertical history by months and years.
+            Education, work experience, achievements, and technical growth in one clear professional path.
           </p>
         </div>
 
@@ -79,7 +127,7 @@ function BlogsSection() {
                     <span className="rounded-full border border-zinc-700/80 bg-zinc-900/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-300">
                       {item.label}
                     </span>
-                    {item.id === 'unusual' ? (
+                    {item.id === 'current-tuit' ? (
                       <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200">
                         <BriefcaseBusiness size={12} />
                         Active
@@ -87,7 +135,8 @@ function BlogsSection() {
                     ) : null}
                   </div>
 
-                  <h3 className="text-lg font-semibold leading-tight text-zinc-100 sm:text-xl">{item.organization}</h3>
+                  <h3 className="text-lg font-semibold leading-tight text-zinc-100 sm:text-xl">{item.role}</h3>
+                  <p className="mt-1 text-sm font-medium text-zinc-400">{item.organization}</p>
 
                   <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-400 sm:text-sm">
                     <span className="inline-flex items-center gap-1.5">
