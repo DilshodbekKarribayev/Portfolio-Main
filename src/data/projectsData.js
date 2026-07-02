@@ -176,5 +176,92 @@ export const projects = [
     process: ['Ideation', 'Execution'],
     gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard4.jpg') }],
     tags: ['Engineering', 'Design']
+  },
+  {
+    id: 'smart-gas-controller',
+    name: 'Smart Gas Controller',
+    emoji: 'IoT',
+    color: 'orange',
+    href: '/work/smart-gas-controller',
+    cta: 'View details',
+    tagline: 'Remote gas heating control system with ESP32 hardware and a mobile app.',
+    timeline: '2026',
+    projectType: 'IoT & Embedded Systems',
+    role: 'Hardware, Embedded & Mobile App Developer',
+    liveUrl: null,
+    githubUrl: null,
+    collaborators: [{ name: 'DiliAble', role: 'Hardware, Embedded Software & Mobile UI' }],
+    description: 'Smart Gas Controller is a smart home automation system that lets users monitor and control a gas heating system remotely through a mobile application. The project combines hardware development, embedded programming, wireless communication, and a modern mobile interface for convenient temperature management.',
+    problem: 'Homeowners need a safer and more convenient way to monitor gas heating temperature and control heating status remotely.',
+    outcome: 'Built a complete smart controller concept with mobile authentication, temperature control UI, real-time monitoring flow, and embedded hardware integration plan.',
+    features: [
+      'Remote temperature control from a smartphone',
+      'Real-time temperature monitoring',
+      'Heating ON/OFF control',
+      'Wireless ESP32 communication',
+      'User authentication',
+      'Temperature history and status monitoring'
+    ],
+    deviceScreens: { desktop: publicAsset('/projects/smart-gas-controller.png') },
+    responsibilities: [
+      'Designed the complete hardware system',
+      'Developed embedded software logic',
+      'Built the mobile application interface',
+      'Integrated hardware and software flow',
+      'Tested and optimized the full control system'
+    ],
+    process: [
+      'System architecture',
+      'ESP32 controller planning',
+      'Temperature sensor and relay integration',
+      'SwiftUI mobile interface design',
+      'Testing and optimization'
+    ],
+    gallery: [{ key: 'shot-1', title: 'Mobile app login', src: publicAsset('/projects/smart-gas-controller.png') }],
+    tags: ['ESP32', 'Arduino', 'SwiftUI', 'IoT', 'Smart Home', 'Embedded C++']
+  },
+  {
+    id: 'smart-access-control',
+    name: 'Smart Access Control System',
+    emoji: 'SEC',
+    color: 'blue',
+    href: '/work/smart-access-control',
+    cta: 'View details',
+    tagline: 'ESP32-powered biometric access control with camera verification and cloud logging.',
+    timeline: '2026',
+    projectType: 'IoT Security System',
+    role: 'Hardware & Embedded Systems Developer',
+    liveUrl: null,
+    githubUrl: null,
+    collaborators: [{ name: 'DiliAble', role: 'Hardware Architecture, Embedded Software & Prototype Design' }],
+    description: 'Smart Access Control System is a biometric security device that combines fingerprint authentication, camera-assisted verification, LCD feedback, Wi-Fi connectivity, relay-based door control, and Google Sheets logging for access and attendance history.',
+    problem: 'Homes, offices, laboratories, and restricted rooms need affordable access control with reliable authentication and easy monitoring.',
+    outcome: 'Created a complete access control prototype with hardware layout, enclosure concept, user feedback display, biometric verification, and cloud-based attendance logging.',
+    features: [
+      'Fingerprint-based user authentication',
+      'Camera-assisted identity verification',
+      'Real-time user information on LCD',
+      'Automatic entry and exit logging',
+      'Google Sheets cloud synchronization',
+      'Relay-controlled electronic door unlocking'
+    ],
+    deviceScreens: { desktop: publicAsset('/projects/smart-access-control.png') },
+    responsibilities: [
+      'Designed the complete hardware architecture',
+      'Developed the embedded software',
+      'Integrated fingerprint and camera modules',
+      'Implemented cloud data synchronization',
+      'Designed and assembled the electronic circuit',
+      'Created the 3D enclosure and product prototype'
+    ],
+    process: [
+      'Hardware architecture',
+      'ESP32-S3 and module integration',
+      'Fingerprint and camera verification',
+      'Google Sheets API logging',
+      'Relay door control testing'
+    ],
+    gallery: [{ key: 'shot-1', title: 'System overview', src: publicAsset('/projects/smart-access-control.png') }],
+    tags: ['ESP32-S3', 'Fingerprint', 'Camera', 'Wi-Fi', 'Google Sheets', 'Embedded C++']
   }
 ]
