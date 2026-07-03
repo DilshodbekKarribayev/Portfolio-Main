@@ -2,6 +2,7 @@ import {
   Database,
   BarChart,
   FileCode2,
+  FileSpreadsheet,
   Paintbrush,
   Github,
   Cpu,
@@ -24,6 +25,7 @@ export const navItems = [
 export const skillset = [
   { name: 'Data Analytics', icon: BarChart, color: '#fb923c' },
   { name: 'SQL & Databases', icon: Database, color: '#60a5fa' },
+  { name: 'Microsoft Office', icon: FileSpreadsheet, color: '#34d399' },
   { name: 'Web Development', icon: FileCode2, color: '#22d3ee' },
   { name: 'Embedded Systems', icon: Cpu, color: '#a78bfa' },
   { name: 'Arduino & ESP', icon: Wrench, color: '#38bdf8' },
