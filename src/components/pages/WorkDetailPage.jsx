@@ -4,14 +4,15 @@ import {
   ArrowLeft,
   CalendarDays,
   CheckCircle2,
-  Clapperboard,
   FolderKanban,
   ImagePlus,
   Users,
 } from 'lucide-react'
 import { projects } from '../../data/siteData'
+import { isVideoSource } from '../../lib/media'
 import TinyChip from '../ui/TinyChip'
 import Lightbox from '../ui/Lightbox'
+import ProjectTitleIcon from '../ui/ProjectTitleIcon'
 
 function MetaCard({ icon, label, value }) {
   const Icon = icon
@@ -30,7 +31,10 @@ function MetaCard({ icon, label, value }) {
 function GalleryImageTile({ projectName, shot, eyebrow, title, description, variant = 'grid', onClick }) {
   const [broken, setBroken] = useState(false)
   const imagePath = shot.src || shot.assetHint?.replace('/public', '')
-  const showImage = Boolean(imagePath) && !broken
+  const isVideo = isVideoSource(imagePath)
+  const showVideo = Boolean(imagePath) && !broken && isVideo
+  const showImage = Boolean(imagePath) && !broken && !isVideo
+  const canOpen = Boolean(onClick) && !isVideo
   const frameClassName = {
     hero: 'min-h-[320px] md:min-h-[430px]',
     device: 'min-h-[200px]',
@@ -39,11 +43,11 @@ function GalleryImageTile({ projectName, shot, eyebrow, title, description, vari
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-[28px] border border-zinc-800/80 bg-[radial-gradient(circle_at_18%_0%,rgba(59,130,246,0.14),transparent_34%),radial-gradient(circle_at_86%_100%,rgba(245,158,11,0.12),transparent_32%),linear-gradient(160deg,rgba(13,17,24,0.92),rgba(7,10,15,0.96))] p-3 shadow-[0_28px_80px_-44px_rgba(0,0,0,0.9)] backdrop-blur-sm md:p-4 ${onClick ? 'cursor-zoom-in' : ''}`}
-      onClick={onClick}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={onClick ? (e) => { if (e.key === 'Enter') onClick() } : undefined}
+      className={`group relative overflow-hidden rounded-[28px] border border-zinc-800/80 bg-[radial-gradient(circle_at_18%_0%,rgba(59,130,246,0.14),transparent_34%),radial-gradient(circle_at_86%_100%,rgba(245,158,11,0.12),transparent_32%),linear-gradient(160deg,rgba(13,17,24,0.92),rgba(7,10,15,0.96))] p-3 shadow-[0_28px_80px_-44px_rgba(0,0,0,0.9)] backdrop-blur-sm md:p-4 ${canOpen ? 'cursor-zoom-in' : ''}`}
+      onClick={canOpen ? onClick : undefined}
+      role={canOpen ? 'button' : undefined}
+      tabIndex={canOpen ? 0 : undefined}
+      onKeyDown={canOpen ? (e) => { if (e.key === 'Enter') onClick() } : undefined}
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_44%)]" />
       {(eyebrow || title || description) ? (
@@ -61,7 +65,21 @@ function GalleryImageTile({ projectName, shot, eyebrow, title, description, vari
         </div>
       ) : null}
 
-      {showImage ? (
+      {showVideo ? (
+        <div className={`relative z-10 flex items-center justify-center overflow-hidden rounded-[22px] border border-white/6 bg-[#04070b] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] md:p-3 ${frameClassName}`}>
+          <video
+            src={imagePath}
+            className="h-full w-full rounded-[18px] object-contain"
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            preload="metadata"
+            onError={() => setBroken(true)}
+          />
+        </div>
+      ) : showImage ? (
         <div className={`relative z-10 flex items-center justify-center overflow-hidden rounded-[22px] border border-white/6 bg-[#04070b] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] md:p-3 ${frameClassName}`}>
           <img
             src={imagePath}
@@ -107,14 +125,6 @@ function WorkDetailPage() {
     )
   }
 
-  const titleIcon = project.icon === 'clapperboard' ? (
-    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-700/80 bg-zinc-900/80 text-amber-300">
-      <Clapperboard size={20} />
-    </span>
-  ) : (
-    <span>{project.emoji}</span>
-  )
-
   const deviceGalleryItems = [
     project.deviceScreens?.desktop
       ? { key: 'device-desktop', title: 'Desktop', src: project.deviceScreens.desktop }
@@ -158,7 +168,7 @@ function WorkDetailPage() {
         <p className="text-[10px] uppercase tracking-[0.26em] text-zinc-500">Project case study</p>
         <h1 className="mt-4 text-4xl font-black leading-[0.9] tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl">
           <span className="inline-flex items-center gap-3">
-            {titleIcon}
+            <ProjectTitleIcon project={project} size="lg" />
             <span>{project.name}</span>
           </span>
         </h1>
@@ -291,7 +301,7 @@ function WorkDetailPage() {
                 title={`${project.name} main interface`}
                 description="Primary product view with the core information architecture."
                 variant="hero"
-                onClick={() => openLightbox(0)}
+                onClick={!isVideoSource(featuredShot.src) ? () => openLightbox(0) : undefined}
               />
             ) : null}
 
@@ -306,7 +316,7 @@ function WorkDetailPage() {
                     title={`Screen ${String(index + 2).padStart(2, '0')}`}
                     description="Additional UI state from the product flow."
                     variant="grid"
-                    onClick={() => openLightbox(index + 1)}
+                    onClick={!isVideoSource(shot.src) ? () => openLightbox(index + 1) : undefined}
                   />
                 ))}
               </div>
@@ -362,7 +372,7 @@ function WorkDetailPage() {
 
       {/* Lightbox */}
       <Lightbox
-        images={allGallerySources.filter((s) => s.src).map((s) => ({ src: s.src, title: s.title }))}
+        images={allGallerySources.filter((s) => s.src && !isVideoSource(s.src)).map((s) => ({ src: s.src, title: s.title }))}
         index={lightboxIndex}
         onClose={closeLightbox}
         onChange={setLightboxIndex}

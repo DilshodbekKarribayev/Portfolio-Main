@@ -182,6 +182,18 @@
   top: 28px;
 }
 
+.pj-progress-tick-frame {
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(8, 12, 18, 0.92);
+  box-shadow:
+    0 0 0 3px rgba(8, 12, 18, 0.72),
+    0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
 .pj-progress-tick-middle {
   top: 50%;
   transform: translate(-50%, -50%);
@@ -195,6 +207,14 @@
   border-color: color-mix(in srgb, var(--pj-accent) 44%, rgba(255, 255, 255, 0.2));
   background: color-mix(in srgb, var(--pj-accent) 72%, rgba(255, 255, 255, 0.18));
   box-shadow: 0 0 12px color-mix(in srgb, var(--pj-accent) 24%, transparent);
+}
+
+.pj-progress-shell[data-frame='2'] .pj-progress-tick-frame {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: color-mix(in srgb, var(--pj-accent) 82%, white 18%);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--pj-accent) 16%, transparent),
+    0 0 18px color-mix(in srgb, var(--pj-accent) 34%, transparent);
 }
 
 .pj-progress-status {
@@ -260,6 +280,41 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.pj-preview-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  z-index: 22;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  border: 1px solid rgba(130, 147, 169, 0.26);
+  background: rgba(7, 10, 15, 0.68);
+  padding: 7px 9px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pj-preview-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(180, 194, 212, 0.32);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: width 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+}
+
+.pj-preview-dot[data-active='true'] {
+  width: 18px;
+  background: var(--pj-preview-accent, #3b82f6);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pj-preview-accent, #3b82f6) 36%, transparent),
+    0 0 16px color-mix(in srgb, var(--pj-preview-accent, #3b82f6) 38%, transparent);
 }
 
 

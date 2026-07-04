@@ -2,10 +2,12 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowUpRight, Clapperboard, Monitor, Star } from 'lucide-react'
+import { ArrowUpRight, Monitor, Star } from 'lucide-react'
 import { projects } from '../../data/siteData'
+import { isVideoSource } from '../../lib/media'
 import TinyChip from '../ui/TinyChip'
 import DevicesMockup from '../ui/DevicesMockup'
+import ProjectTitleIcon from '../ui/ProjectTitleIcon'
 
 const colorAccents = {
   red: { main: '#ef4444', glow: 'rgba(239, 68, 68, 0.22)', soft: 'rgba(239, 68, 68, 0.06)' },
@@ -17,36 +19,56 @@ const DEVICE_LABELS = [
   { icon: Monitor, label: 'Desktop' },
 ]
 
-const PROJECT_PROGRESS_STEPS = [
-  { key: 'desktop', threshold: 1, label: 'Desktop view' },
-]
-
 const PIN_SCROLL_LENGTH_DESKTOP = '+=220%'
 const PIN_SCROLL_LENGTH_MOBILE = '+=170%'
-
-function getProjectProgressStep(progress) {
-  return PROJECT_PROGRESS_STEPS.find((step) => progress < step.threshold)
-    ?? PROJECT_PROGRESS_STEPS[PROJECT_PROGRESS_STEPS.length - 1]
-}
 
 function syncProjectProgress(progressRail, progress) {
   if (!progressRail) return
 
   const clampedProgress = Math.max(0, Math.min(progress, 1))
+  const frameCount = Math.max(1, Number(progressRail.dataset.frameCount || 1))
+  const frameIndex = frameCount > 1
+    ? Math.min(frameCount - 1, Math.floor(clampedProgress * frameCount))
+    : 0
   const progressValue = progressRail.querySelector('[data-pj-progress-value]')
   const progressStep = progressRail.querySelector('[data-pj-progress-step]')
-  const activeStep = getProjectProgressStep(clampedProgress)
 
   progressRail.style.setProperty('--pj-progress', clampedProgress.toFixed(3))
-  progressRail.dataset.step = activeStep?.key ?? 'desktop'
+  progressRail.dataset.step = 'desktop'
+  progressRail.dataset.frame = String(frameIndex + 1)
 
   if (progressValue) {
     progressValue.textContent = `${Math.round(clampedProgress * 100)}%`
   }
 
   if (progressStep) {
-    progressStep.textContent = activeStep?.label ?? 'Desktop view'
+    progressStep.textContent = frameCount > 1
+      ? `Preview ${String(frameIndex + 1).padStart(2, '0')}`
+      : 'Desktop view'
   }
+}
+
+function syncPreviewFrames(frames, dots, progress) {
+  if (!frames?.length) return
+
+  const clampedProgress = Math.max(0, Math.min(progress, 1))
+  const activeIndex = frames.length > 1
+    ? Math.min(frames.length - 1, Math.floor(clampedProgress * frames.length))
+    : 0
+
+  frames.forEach((frame, index) => {
+    if (!frame) return
+    const isActive = index === activeIndex
+    frame.style.opacity = isActive ? '1' : '0'
+    frame.style.visibility = isActive ? 'visible' : 'hidden'
+    frame.style.pointerEvents = isActive ? 'auto' : 'none'
+    frame.dataset.active = isActive ? 'true' : 'false'
+  })
+
+  dots?.forEach((dot, index) => {
+    if (!dot) return
+    dot.dataset.active = index === activeIndex ? 'true' : 'false'
+  })
 }
 
 function DevicePlaceholder({ title, label }) {
@@ -62,7 +84,22 @@ function DevicePlaceholder({ title, label }) {
   )
 }
 
-function DeviceFrameContent({ src, title, label }) {
+function PreviewMedia({ src, title, label }) {
+  if (isVideoSource(src)) {
+    return (
+      <video
+        src={src}
+        className="h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={`${title} ${label}`}
+      />
+    )
+  }
+
   if (src) {
     return (
       <img
@@ -78,16 +115,23 @@ function DeviceFrameContent({ src, title, label }) {
   return <DevicePlaceholder title={title} label={label} />
 }
 
-function ProjectIcon({ project }) {
-  if (project.icon === 'clapperboard') {
-    return (
-      <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-700/80 bg-zinc-900/80 text-amber-300">
-        <Clapperboard size={18} />
-      </span>
-    )
-  }
+function DeviceFrameContent({ frames, title, label, onFrameRef }) {
+  const previewFrames = frames?.length ? frames : [{ key: 'placeholder', title: label, src: null }]
 
-  return <span>{project.emoji}</span>
+  return (
+    <div className="relative h-full w-full overflow-hidden">
+      {previewFrames.map((frame, frameIndex) => (
+        <div
+          key={frame.key ?? frame.src ?? frameIndex}
+          ref={(el) => onFrameRef?.(frameIndex, el)}
+          className="absolute inset-0"
+          style={{ opacity: frameIndex === 0 ? 1 : 0 }}
+        >
+          <PreviewMedia src={frame.src} title={title} label={frame.title ?? label} />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function ProjectsSection() {
@@ -108,14 +152,21 @@ function ProjectsSection() {
         const infoPanel = refs.infoPanel
         const glowOrb = refs.glowOrb
         const progressRail = refs.progressRail
+        const previewFrames = refs.previewFrames?.filter(Boolean) ?? []
+        const previewDots = refs.previewDots?.filter(Boolean) ?? []
 
         if (!mac) return
 
         gsap.set(mac, { autoAlpha: 0, scale: 0.88, y: 42, rotateY: -8 })
+        if (previewFrames.length) {
+          gsap.set(previewFrames, { opacity: 0, visibility: 'hidden' })
+          gsap.set(previewFrames[0], { opacity: 1, visibility: 'visible' })
+        }
 
         if (glowOrb) gsap.set(glowOrb, { autoAlpha: 0, scale: 0.6 })
         if (infoPanel) gsap.set(infoPanel, { autoAlpha: 1, x: 0 })
         syncProjectProgress(progressRail, 0)
+        syncPreviewFrames(previewFrames, previewDots, 0)
         if (indicators) {
           indicators.forEach((dot) => {
             if (dot) gsap.set(dot, { autoAlpha: 0.2 })
@@ -132,8 +183,14 @@ function ProjectsSection() {
             pinSpacing: pinScene,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            onUpdate: (self) => syncProjectProgress(progressRail, self.progress),
-            onRefresh: (self) => syncProjectProgress(progressRail, self.progress),
+            onUpdate: (self) => {
+              syncProjectProgress(progressRail, self.progress)
+              syncPreviewFrames(previewFrames, previewDots, self.progress)
+            },
+            onRefresh: (self) => {
+              syncProjectProgress(progressRail, self.progress)
+              syncPreviewFrames(previewFrames, previewDots, self.progress)
+            },
           },
         })
 
@@ -184,15 +241,14 @@ function ProjectsSection() {
   }, [])
 
   return (
-    <section ref={rootRef} className="mx-auto w-full max-w-[1440px] px-4 py-20 md:px-7 lg:py-28" id="work">
+    <section ref={rootRef} className="mx-auto w-full max-w-[1440px] px-4 pb-20 pt-0 md:px-7 lg:pb-28" id="work">
      
 
       <div className="space-y-10 lg:space-y-0">
         {projects.map((project, index) => {
-          const optimizedDesktopPreview = project.gallery?.[0]?.src || project.deviceScreens?.desktop
-          const screens = {
-            desktop: { label: 'Desktop preview', src: optimizedDesktopPreview },
-          }
+          const previewFrames = project.gallery?.length
+            ? project.gallery
+            : [{ key: 'desktop', title: 'Desktop preview', src: project.deviceScreens?.desktop }]
           const accent = colorAccents[project.color] || colorAccents.orange
           const isExternal = project.href.startsWith('http') || project.href.startsWith('mailto:')
           const projectNumber = String(index + 1).padStart(2, '0')
@@ -237,7 +293,7 @@ function ProjectsSection() {
 
                       <h3 className="text-2xl leading-tight font-extrabold tracking-tight text-zinc-100 sm:text-3xl lg:text-4xl">
                         <span className="inline-flex items-center gap-3">
-                          <ProjectIcon project={project} />
+                          <ProjectTitleIcon project={project} />
                           <span>{project.name}</span>
                         </span>
                       </h3>
@@ -308,6 +364,7 @@ function ProjectsSection() {
                       deviceRefs.current[index].progressRail = el
                     }}
                     className="pj-progress-shell"
+                    data-frame-count={previewFrames.length}
                     style={{
                       '--pj-accent': accent.main,
                       '--pj-accent-glow': accent.glow,
@@ -325,6 +382,9 @@ function ProjectsSection() {
                         <span className="pj-progress-fill" />
                         <span className="pj-progress-knob" />
                         <span className="pj-progress-tick pj-progress-tick-top" />
+                        {previewFrames.length > 1 ? (
+                          <span className="pj-progress-tick pj-progress-tick-frame" />
+                        ) : null}
                       </div>
 
                       <div className="pj-progress-status">
@@ -334,7 +394,10 @@ function ProjectsSection() {
                     </div>
                   </div>
 
-                  <div className="pj-device-stage">
+                  <div
+                    className="pj-device-stage"
+                    style={{ '--pj-preview-accent': accent.main }}
+                  >
                     <div className="pj-watermark">{projectNumber}</div>
 
                     <div
@@ -349,9 +412,35 @@ function ProjectsSection() {
                         color="spacegray"
                         scale={0.72}
                       >
-                        <DeviceFrameContent title={project.name} label={screens.desktop.label} src={screens.desktop.src} />
+                        <DeviceFrameContent
+                          title={project.name}
+                          label="Desktop preview"
+                          frames={previewFrames}
+                          onFrameRef={(frameIndex, el) => {
+                            deviceRefs.current[index] = deviceRefs.current[index] || {}
+                            deviceRefs.current[index].previewFrames = deviceRefs.current[index].previewFrames || []
+                            deviceRefs.current[index].previewFrames[frameIndex] = el
+                          }}
+                        />
                       </DevicesMockup>
                     </div>
+
+                    {previewFrames.length > 1 ? (
+                      <div className="pj-preview-dots" aria-hidden="true">
+                        {previewFrames.map((frame, frameIndex) => (
+                          <span
+                            key={frame.key ?? frame.src ?? frameIndex}
+                            ref={(el) => {
+                              deviceRefs.current[index] = deviceRefs.current[index] || {}
+                              deviceRefs.current[index].previewDots = deviceRefs.current[index].previewDots || []
+                              deviceRefs.current[index].previewDots[frameIndex] = el
+                            }}
+                            className="pj-preview-dot"
+                            data-active={frameIndex === 0 ? 'true' : 'false'}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
 
                   </div>
                 </div>

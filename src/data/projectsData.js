@@ -9,6 +9,7 @@ export const projects = [
   {
     id: 'exammorse',
     name: 'Exam Morse',
+    icon: 'web',
     emoji: '📝',
     color: 'blue',
     href: '/work/exammorse',
@@ -27,12 +28,16 @@ export const projects = [
     deviceScreens: { desktop: publicAsset('/projects/exam-morse.png') },
     responsibilities: ['Frontend implementation', 'Business logic integration'],
     process: ['Requirement analysis', 'UI Design', 'Development', 'Deployment'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/exam-morse.png') }],
+    gallery: [
+      { key: 'shot-1', title: 'Main view', src: publicAsset('/projects/exam-morse.png') },
+      { key: 'shot-2', title: 'Second view', src: publicAsset('/projects/exam-morse2.png') }
+    ],
     tags: ['Web', 'HTML', 'CSS', 'JavaScript']
   },
   {
     id: 'teacherurdu',
     name: 'Teacher Urdu',
+    icon: 'web',
     emoji: '📚',
     color: 'green',
     href: '/work/teacherurdu',
@@ -51,12 +56,16 @@ export const projects = [
     deviceScreens: { desktop: publicAsset('/projects/teacher-urdu.png') },
     responsibilities: ['UI/UX Implementation', 'Frontend Development'],
     process: ['Design', 'Development', 'QA'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/teacher-urdu.png') }],
+    gallery: [
+      { key: 'shot-1', title: 'Main view', src: publicAsset('/projects/teacher-urdu.png') },
+      { key: 'shot-2', title: 'Second view', src: publicAsset('/projects/Teacher2.png') }
+    ],
     tags: ['Education', 'Web', 'Frontend']
   },
   {
     id: 'catelnium',
     name: 'Catelnium',
+    icon: 'web',
     emoji: '🚀',
     color: 'orange',
     href: '/work/catelnium',
@@ -75,12 +84,16 @@ export const projects = [
     deviceScreens: { desktop: publicAsset('/projects/catelniom.png') },
     responsibilities: ['Full stack architecture', 'Deployment'],
     process: ['Planning', 'Development', 'Testing'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/catelniom.png') }],
+    gallery: [
+      { key: 'shot-1', title: 'Main view', src: publicAsset('/projects/catelniom.png') },
+      { key: 'shot-2', title: 'Status dashboard', src: publicAsset('/projects/catelnium2.png') }
+    ],
     tags: ['Web', 'Innovation']
   },
   {
     id: 'hard-1',
     name: 'Humanoid Robot',
+    icon: 'robot',
     emoji: '⚙️',
     color: 'red',
     href: '/work/hard-1',
@@ -99,15 +112,13 @@ export const projects = [
     deviceScreens: { desktop: publicAsset('/projects/hardware1.png') },
     responsibilities: ['Circuit design', 'C/C++ programming', 'Assembly'],
     process: ['Prototyping', 'Coding', 'Testing'],
-    gallery: [
-      { key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hardware1.png') },
-      { key: 'shot-2', title: 'Detail', src: publicAsset('/projects/hard1.jpg') }
-    ],
+    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hardware1.png') }],
     tags: ['Hardware', 'Arduino', 'Embedded']
   },
   {
     id: 'hard-2',
     name: 'CorelDRAW',
+    icon: 'coreldraw',
     emoji: '🤖',
     color: 'purple',
     href: '/work/hard-2',
@@ -123,39 +134,41 @@ export const projects = [
     problem: 'Building an automated system for efficiency.',
     outcome: 'A working physical prototype demonstrating the concept.',
     features: ['Automation', 'Logic control'],
-    deviceScreens: { desktop: publicAsset('/projects/hard2.jpg') },
+    deviceScreens: { desktop: publicAsset('/projects/coreldraw.mp4') },
     responsibilities: ['Hardware design', 'Programming'],
     process: ['Design', 'Implementation'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard2.jpg') }],
+    gallery: [{ key: 'shot-1', title: 'Main video', src: publicAsset('/projects/coreldraw.mp4') }],
     tags: ['Hardware', 'Electronics']
   },
   {
     id: 'hard-3',
-    name: 'Photoshop',
+    name: 'Catalog',
+    icon: 'catalog',
     emoji: '🔌',
     color: 'blue',
     href: '/work/hard-3',
     cta: 'View details',
-    tagline: 'Custom circuit design and IoT.',
+    tagline: 'Elegant door catalog design and visual presentation.',
     timeline: 'Recent',
-    projectType: 'Hardware',
-    role: 'Embedded Engineer',
+    projectType: 'Catalog Design',
+    role: 'Graphic Designer',
     liveUrl: 'https://www.instagram.com/p/DXo0FIQikGr/',
     githubUrl: null,
     collaborators: [{ name: 'DiliAble', role: 'Hardware & Code' }],
-    description: 'Exploring IoT and connectivity through custom hardware.',
-    problem: 'Connecting physical devices to data streams.',
-    outcome: 'Established reliable data transmission from hardware.',
-    features: ['IoT', 'Data transmission'],
-    deviceScreens: { desktop: publicAsset('/projects/hard3.jpg') },
-    responsibilities: ['IoT setup', 'Hardware build'],
-    process: ['Architecture', 'Assembly'],
-    gallery: [{ key: 'shot-1', title: 'Main view', src: publicAsset('/projects/hard3.jpg') }],
-    tags: ['IoT', 'Hardware']
+    description: 'A premium catalog design for Elegant Eshiklari, focused on presenting door products with a refined luxury visual style.',
+    problem: 'Creating a professional catalog cover that makes the product line look premium and memorable.',
+    outcome: 'Designed a polished catalog visual with strong typography, product focus, and brand-style presentation.',
+    features: ['Catalog cover design', 'Premium product presentation'],
+    deviceScreens: { desktop: publicAsset('/projects/photoshop.png') },
+    responsibilities: ['Catalog layout design', 'Visual composition'],
+    process: ['Concept', 'Design', 'Export'],
+    gallery: [{ key: 'shot-1', title: 'Catalog design', src: publicAsset('/projects/photoshop.png') }],
+    tags: ['Catalog', 'Graphic Design', 'Brand Presentation']
   },
   {
     id: 'hard-4',
     name: 'Photoshop',
+    icon: 'photoshop',
     emoji: '💡',
     color: 'yellow',
     href: '/work/hard-4',
@@ -180,6 +193,7 @@ export const projects = [
   {
     id: 'smart-gas-controller',
     name: 'Smart Gas Controller',
+    icon: 'iot',
     emoji: 'IoT',
     color: 'orange',
     href: '/work/smart-gas-controller',
@@ -222,7 +236,8 @@ export const projects = [
   },
   {
     id: 'smart-access-control',
-    name: 'Smart Access Control System',
+    name: 'Smart HR',
+    icon: 'security',
     emoji: 'SEC',
     color: 'blue',
     href: '/work/smart-access-control',
@@ -245,7 +260,7 @@ export const projects = [
       'Google Sheets cloud synchronization',
       'Relay-controlled electronic door unlocking'
     ],
-    deviceScreens: { desktop: publicAsset('/projects/smart-access-control.png') },
+    deviceScreens: { desktop: publicAsset('/projects/HR.png') },
     responsibilities: [
       'Designed the complete hardware architecture',
       'Developed the embedded software',
@@ -261,7 +276,7 @@ export const projects = [
       'Google Sheets API logging',
       'Relay door control testing'
     ],
-    gallery: [{ key: 'shot-1', title: 'System overview', src: publicAsset('/projects/smart-access-control.png') }],
+    gallery: [{ key: 'shot-1', title: 'HR overview', src: publicAsset('/projects/HR.png') }],
     tags: ['ESP32-S3', 'Fingerprint', 'Camera', 'Wi-Fi', 'Google Sheets', 'Embedded C++']
   }
 ]
