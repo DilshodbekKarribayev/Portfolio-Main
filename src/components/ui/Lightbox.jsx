@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useI18n } from '../../i18n/useI18n.js'
 
 /**
  * Lightbox — fullscreen просмотр изображений с навигацией.
@@ -15,6 +16,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 const MotionDiv = motion.div
 
 export default function Lightbox({ images, index, onClose, onChange }) {
+  const { copy } = useI18n()
   const isOpen = index !== null && index !== undefined && index >= 0
 
   const goNext = useCallback(() => {
@@ -61,14 +63,14 @@ export default function Lightbox({ images, index, onClose, onChange }) {
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={currentImage?.title || 'Image preview'}
+          aria-label={currentImage?.title || copy.lightbox.imagePreview}
         >
           {/* Close button */}
           <button
             type="button"
             onClick={onClose}
             className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-300 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
-            aria-label="Close"
+            aria-label={copy.lightbox.close}
           >
             <X size={18} />
           </button>
@@ -84,7 +86,7 @@ export default function Lightbox({ images, index, onClose, onChange }) {
               type="button"
               onClick={(e) => { e.stopPropagation(); goPrev() }}
               className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-300 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
-              aria-label="Previous image"
+              aria-label={copy.lightbox.previous}
             >
               <ChevronLeft size={18} />
             </button>
@@ -96,7 +98,7 @@ export default function Lightbox({ images, index, onClose, onChange }) {
               type="button"
               onClick={(e) => { e.stopPropagation(); goNext() }}
               className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-300 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
-              aria-label="Next image"
+              aria-label={copy.lightbox.next}
             >
               <ChevronRight size={18} />
             </button>
@@ -129,3 +131,4 @@ export default function Lightbox({ images, index, onClose, onChange }) {
     </AnimatePresence>
   )
 }
+

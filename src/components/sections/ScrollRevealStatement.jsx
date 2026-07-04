@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { useI18n } from '../../i18n/useI18n.js'
 
 /**
  * ScrollRevealStatement — лёгкая версия.
@@ -8,21 +9,8 @@ import { useRef, useEffect, useState } from 'react'
  * Нагрузка: 0 вычислений при скролле, только одно событие при входе в viewport.
  */
 
-const PHRASE = [
-  { text: 'I', highlight: false },
-  { text: 'turn', highlight: false },
-  { text: 'complex', highlight: true },
-  { text: 'ideas', highlight: true },
-  { text: 'into', highlight: false },
-  { text: 'fast,', highlight: false },
-  { text: 'beautiful,', highlight: true },
-  { text: 'and', highlight: false },
-  { text: 'production-ready', highlight: true },
-  { text: 'all', highlight: false },
-  { text: 'products.', highlight: false },
-]
-
 function ScrollRevealStatement() {
+  const { copy } = useI18n()
   const sectionRef = useRef(null)
   const [revealed, setRevealed] = useState(false)
 
@@ -48,17 +36,17 @@ function ScrollRevealStatement() {
     <section
       ref={sectionRef}
       className="relative mx-auto w-full max-w-[1320px] px-4 py-28 md:px-7 lg:py-40"
-      aria-label="Statement"
+      aria-label={copy.statement.subtitle}
     >
       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-zinc-700/40 to-transparent md:inset-x-7" />
 
-      <p className="section-subtitle mb-8 text-center">The approach</p>
+      <p className="section-subtitle mb-8 text-center">{copy.statement.subtitle}</p>
 
       <p
         className="mx-auto max-w-[900px] text-center text-[clamp(1.6rem,4.2vw,3.6rem)] font-extrabold leading-[1.18] tracking-tight"
-        aria-label="I turn complex ideas into fast, beautiful, and production-ready web products."
+        aria-label={copy.statement.aria}
       >
-        {PHRASE.map((word, i) => (
+        {copy.statement.phrase.map((word, i) => (
           <span
             key={i}
             className="mr-[0.28em] inline-block last:mr-0 transition-all duration-700 ease-out"
@@ -84,3 +72,4 @@ function ScrollRevealStatement() {
 }
 
 export default ScrollRevealStatement
+

@@ -17,23 +17,20 @@ import ScrollToTopButton from './components/ui/ScrollToTopButton'
 import ScrollProgressBar from './components/ui/ScrollProgressBar'
 import ScrollRevealStatement from './components/sections/ScrollRevealStatement'
 import CursorGlow from './components/ui/CursorGlow'
-import { projects } from './data/siteData'
 import NotFoundPage from './components/pages/NotFoundPage'
+import { useI18n } from './i18n/useI18n.js'
 
 const SITE_URL = 'https://diliable.netlify.app' // Update with actual domain
-const DEFAULT_SEO = {
-  title: 'Dilshodbek Karribayev (DiliAble) | Full Stack Technology Engineer',
-  description:
-    'Portfolio of Dilshodbek Karribayev (DiliAble), a Full Stack Technology Engineer passionate about building innovative products through engineering, data, and design.',
-  image: `${SITE_URL}/assets/demo/diliable-photo.jpg`, // Update with your own photo later
-}
+const DEFAULT_SEO_IMAGE = `${SITE_URL}/assets/demo/diliable-photo.jpg`
 const ProjectsSection = lazy(() => import('./components/sections/ProjectsSection'))
 const WorkDetailPage = lazy(() => import('./components/pages/WorkDetailPage'))
 
 function RouteFallback() {
+  const { copy } = useI18n()
+
   return (
     <section className="mx-auto w-full max-w-[1320px] px-4 pb-16 pt-28 text-zinc-500 md:px-7 lg:pt-32">
-      Loading...
+      {copy.common.loading}
     </section>
   )
 }
@@ -89,6 +86,7 @@ function WorkPage() {
 
 function App() {
   const location = useLocation()
+  const { copy, projects } = useI18n()
 
   useEffect(() => {
     if (location.pathname !== '/') {
@@ -122,30 +120,29 @@ function App() {
     const isKnownPath = isHome || isWorkRoot || Boolean(matchedProject)
 
     let seo = {
-      title: DEFAULT_SEO.title,
-      description: DEFAULT_SEO.description,
-      image: DEFAULT_SEO.image,
+      title: copy.seo.defaultTitle,
+      description: copy.seo.defaultDescription,
+      image: DEFAULT_SEO_IMAGE,
       url: `${SITE_URL}${normalizedPath}`,
     }
 
     if (isWorkRoot) {
       seo = {
         ...seo,
-        title: 'Work | DiliAble',
-        description:
-          'Selected projects by Dilshodbek Karribayev (DiliAble) including Web Development, Embedded Systems, and Data Analytics.',
+        title: copy.seo.workTitle,
+        description: copy.seo.workDescription,
       }
     }
 
     if (matchedProject) {
-      const projectImage = matchedProject.deviceScreens?.desktop || DEFAULT_SEO.image
+      const projectImage = matchedProject.deviceScreens?.desktop || DEFAULT_SEO_IMAGE
       const absoluteImage = projectImage.startsWith('http')
         ? projectImage
         : `${SITE_URL}${projectImage}`
       seo = {
         ...seo,
-        title: `${matchedProject.name} | Work | DiliAble`,
-        description: matchedProject.description || matchedProject.tagline || DEFAULT_SEO.description,
+        title: `${matchedProject.name} | ${copy.navItems.find((item) => item.id === 'work')?.label || 'Work'} | DiliAble`,
+        description: matchedProject.description || matchedProject.tagline || copy.seo.defaultDescription,
         image: absoluteImage,
       }
     }
@@ -153,8 +150,8 @@ function App() {
     if (!isKnownPath) {
       seo = {
         ...seo,
-        title: '404 | Page not found | DiliAble',
-        description: 'The requested page was not found.',
+        title: copy.seo.notFoundTitle,
+        description: copy.seo.notFoundDescription,
       }
     }
 
@@ -167,13 +164,13 @@ function App() {
     upsertMeta('property', 'og:description', seo.description)
     upsertMeta('property', 'og:url', seo.url)
     upsertMeta('property', 'og:image', seo.image)
-    upsertMeta('property', 'og:locale', 'en_US')
+    upsertMeta('property', 'og:locale', copy.seo.ogLocale)
     upsertMeta('name', 'twitter:card', 'summary_large_image')
     upsertMeta('name', 'twitter:title', seo.title)
     upsertMeta('name', 'twitter:description', seo.description)
     upsertMeta('name', 'twitter:image', seo.image)
     upsertCanonical(seo.url)
-  }, [location.pathname])
+  }, [copy, location.pathname, projects])
 
   return (
     <SmoothScroll>
@@ -182,7 +179,7 @@ function App() {
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-zinc-100 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900"
         >
-          Skip to content
+          {copy.common.skipToContent}
         </a>
         <div className="relative isolate min-h-[100dvh] overflow-x-clip bg-[#07090d] text-zinc-100">
           <ScrollProgressBar />
@@ -219,4 +216,5 @@ function App() {
 }
 
 export default App
+
 

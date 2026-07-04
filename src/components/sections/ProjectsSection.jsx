@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight, Monitor, Star } from 'lucide-react'
-import { projects } from '../../data/siteData'
 import { isVideoSource } from '../../lib/media'
 import TinyChip from '../ui/TinyChip'
 import DevicesMockup from '../ui/DevicesMockup'
 import ProjectTitleIcon from '../ui/ProjectTitleIcon'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const colorAccents = {
   red: { main: '#ef4444', glow: 'rgba(239, 68, 68, 0.22)', soft: 'rgba(239, 68, 68, 0.06)' },
@@ -15,14 +15,10 @@ const colorAccents = {
   blue: { main: '#3b82f6', glow: 'rgba(59, 130, 246, 0.22)', soft: 'rgba(59, 130, 246, 0.06)' },
 }
 
-const DEVICE_LABELS = [
-  { icon: Monitor, label: 'Desktop' },
-]
-
 const PIN_SCROLL_LENGTH_DESKTOP = '+=220%'
 const PIN_SCROLL_LENGTH_MOBILE = '+=170%'
 
-function syncProjectProgress(progressRail, progress) {
+function syncProjectProgress(progressRail, progress, labels) {
   if (!progressRail) return
 
   const clampedProgress = Math.max(0, Math.min(progress, 1))
@@ -43,8 +39,8 @@ function syncProjectProgress(progressRail, progress) {
 
   if (progressStep) {
     progressStep.textContent = frameCount > 1
-      ? `Preview ${String(frameIndex + 1).padStart(2, '0')}`
-      : 'Desktop view'
+      ? `${labels.preview} ${String(frameIndex + 1).padStart(2, '0')}`
+      : labels.desktopView
   }
 }
 
@@ -135,6 +131,7 @@ function DeviceFrameContent({ frames, title, label, onFrameRef }) {
 }
 
 function ProjectsSection() {
+  const { copy, projects } = useI18n()
   const rootRef = useRef(null)
   const stageRefs = useRef([])
   const deviceRefs = useRef([])
@@ -165,7 +162,7 @@ function ProjectsSection() {
 
         if (glowOrb) gsap.set(glowOrb, { autoAlpha: 0, scale: 0.6 })
         if (infoPanel) gsap.set(infoPanel, { autoAlpha: 1, x: 0 })
-        syncProjectProgress(progressRail, 0)
+        syncProjectProgress(progressRail, 0, copy.projectsSection)
         syncPreviewFrames(previewFrames, previewDots, 0)
         if (indicators) {
           indicators.forEach((dot) => {
@@ -184,11 +181,11 @@ function ProjectsSection() {
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-              syncProjectProgress(progressRail, self.progress)
+              syncProjectProgress(progressRail, self.progress, copy.projectsSection)
               syncPreviewFrames(previewFrames, previewDots, self.progress)
             },
             onRefresh: (self) => {
-              syncProjectProgress(progressRail, self.progress)
+              syncProjectProgress(progressRail, self.progress, copy.projectsSection)
               syncPreviewFrames(previewFrames, previewDots, self.progress)
             },
           },
@@ -238,7 +235,7 @@ function ProjectsSection() {
     }, rootRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [copy.projectsSection])
 
   return (
     <section ref={rootRef} className="mx-auto w-full max-w-[1440px] px-4 pb-20 pt-0 md:px-7 lg:pb-28" id="work">
@@ -248,7 +245,7 @@ function ProjectsSection() {
         {projects.map((project, index) => {
           const previewFrames = project.gallery?.length
             ? project.gallery
-            : [{ key: 'desktop', title: 'Desktop preview', src: project.deviceScreens?.desktop }]
+            : [{ key: 'desktop', title: copy.projectsSection.desktopPreview, src: project.deviceScreens?.desktop }]
           const accent = colorAccents[project.color] || colorAccents.orange
           const isExternal = project.href.startsWith('http') || project.href.startsWith('mailto:')
           const projectNumber = String(index + 1).padStart(2, '0')
@@ -338,7 +335,7 @@ function ProjectsSection() {
                       )}
 
                       <div className="pj-indicators mt-10">
-                        {DEVICE_LABELS.map((d, di) => {
+                        {[{ icon: Monitor, label: copy.projectsSection.desktop }].map((d, di) => {
                           const Icon = d.icon
                           return (
                             <div
@@ -373,7 +370,7 @@ function ProjectsSection() {
                   >
                     <div className="pj-progress-panel">
                       <div className="pj-progress-meta">
-                        <span className="pj-progress-label">Scroll</span>
+                        <span className="pj-progress-label">{copy.projectsSection.scroll}</span>
                         <span className="pj-progress-value" data-pj-progress-value>00%</span>
                       </div>
 
@@ -388,8 +385,8 @@ function ProjectsSection() {
                       </div>
 
                       <div className="pj-progress-status">
-                        <span className="pj-progress-status-label">Current frame</span>
-                        <span className="pj-progress-status-value" data-pj-progress-step>Desktop view</span>
+                        <span className="pj-progress-status-label">{copy.projectsSection.currentFrame}</span>
+                        <span className="pj-progress-status-value" data-pj-progress-step>{copy.projectsSection.desktopView}</span>
                       </div>
                     </div>
                   </div>
@@ -414,7 +411,7 @@ function ProjectsSection() {
                       >
                         <DeviceFrameContent
                           title={project.name}
-                          label="Desktop preview"
+                          label={copy.projectsSection.desktopPreview}
                           frames={previewFrames}
                           onFrameRef={(frameIndex, el) => {
                             deviceRefs.current[index] = deviceRefs.current[index] || {}
@@ -454,3 +451,4 @@ function ProjectsSection() {
 }
 
 export default ProjectsSection
+

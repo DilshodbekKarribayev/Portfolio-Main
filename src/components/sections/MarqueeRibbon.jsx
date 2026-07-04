@@ -1,12 +1,18 @@
-﻿import { motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { Sparkles } from 'lucide-react'
-import { marqueeWords } from '../../data/siteData'
 import { fadeUp } from '../../lib/animations'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 
 function MarqueeRibbon() {
-  const words = [...marqueeWords, ...marqueeWords, ...marqueeWords, ...marqueeWords]
+  const { copy } = useI18n()
+  const words = [
+    ...copy.marqueeWords,
+    ...copy.marqueeWords,
+    ...copy.marqueeWords,
+    ...copy.marqueeWords,
+  ]
 
   return (
     <MotionSection
@@ -34,6 +40,7 @@ function MarqueeRibbon() {
 }
 
 export default MarqueeRibbon
+
 
 
 

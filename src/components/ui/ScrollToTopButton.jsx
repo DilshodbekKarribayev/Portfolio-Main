@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUp } from 'lucide-react'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionButton = motion.button
 
 function ScrollToTopButton() {
+  const { copy } = useI18n()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function ScrollToTopButton() {
           whileHover={{ y: -3, scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           className="fixed bottom-5 right-5 z-[115] inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-950/88 text-zinc-200 shadow-[0_16px_36px_rgba(0,0,0,0.45)] backdrop-blur-md transition hover:border-zinc-500 hover:text-white"
-          aria-label="Scroll to top"
+          aria-label={copy.common.scrollToTop}
         >
           <ArrowUp size={18} />
         </MotionButton>
@@ -42,4 +44,5 @@ function ScrollToTopButton() {
 }
 
 export default ScrollToTopButton
+
 

@@ -2,15 +2,16 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { navItems } from '../../data/siteData'
 import { publicAsset } from '../../lib/publicAsset'
 import NavPill from '../ui/NavPill'
 import Magnetic from '../ui/Magnetic'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionNav = motion.nav
 const HOME_SECTION = 'hero'
 
 function HeaderNav() {
+  const { copy, language, languages, navItems, setLanguage } = useI18n()
   const [visibleSection, setVisibleSection] = useState(HOME_SECTION)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -58,7 +59,7 @@ function HeaderNav() {
     })
 
     return () => observer.disconnect()
-  }, [location.pathname])
+  }, [location.pathname, navItems])
 
   const scrollToSection = useCallback((id) => {
     const section = document.getElementById(id)
@@ -138,14 +139,33 @@ function HeaderNav() {
                 : 'border-amber-200/30 bg-amber-200/10 text-amber-100 hover:border-amber-200/50 hover:bg-amber-200/20'
                 }`}
             >
-              Work
+              {copy.header.work}
             </button>
           </Magnetic>
+          <div
+            className="ml-1 flex items-center rounded-full border border-zinc-700/80 bg-zinc-900/70 p-1"
+            aria-label={copy.header.languageLabel}
+          >
+            {languages.map((item) => (
+              <button
+                key={item.code}
+                type="button"
+                onClick={() => setLanguage(item.code)}
+                className={`rounded-full px-2.5 py-1 text-[10px] font-bold tracking-[0.16em] transition ${language === item.code
+                  ? 'bg-zinc-100 text-zinc-900'
+                  : 'text-zinc-500 hover:text-zinc-100'
+                  }`}
+                aria-pressed={language === item.code}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </nav>
 
         <button
           type="button"
-          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-label={menuOpen ? copy.header.closeNavigation : copy.header.openNavigation}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((prev) => !prev)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-950/80 text-zinc-200 shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl transition hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 md:hidden"
@@ -188,8 +208,27 @@ function HeaderNav() {
                 : 'border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800'
                 }`}
             >
-              Work
+              {copy.header.work}
             </button>
+            <div
+              className="mt-3 grid grid-cols-2 gap-2"
+              aria-label={copy.header.languageLabel}
+            >
+              {languages.map((item) => (
+                <button
+                  key={item.code}
+                  type="button"
+                  onClick={() => setLanguage(item.code)}
+                  className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${language === item.code
+                    ? 'bg-zinc-100 text-zinc-900'
+                    : 'bg-zinc-950/70 text-zinc-300 hover:bg-zinc-900 hover:text-zinc-100'
+                    }`}
+                  aria-pressed={language === item.code}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
           </MotionNav>
         ) : null}
       </AnimatePresence>
@@ -198,3 +237,4 @@ function HeaderNav() {
 }
 
 export default HeaderNav
+

@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { Quote } from 'lucide-react'
 import { testimonials } from '../../data/siteData'
 import { fadeUp, staggerContainer, fadeUpChild } from '../../lib/animations'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 const MotionDiv = motion.div
@@ -43,6 +44,8 @@ function TestimonialCard({ t }) {
 }
 
 function TestimonialsSection() {
+  const { copy } = useI18n()
+
   if (!testimonials.length) return null
 
   return (
@@ -55,10 +58,10 @@ function TestimonialsSection() {
       id="testimonials"
     >
       <MotionDiv variants={fadeUp} className="mb-14 text-center">
-        <p className="section-subtitle mb-4">What Others Say</p>
+        <p className="section-subtitle mb-4">{copy.testimonials.subtitle}</p>
         <h2 className="section-title text-zinc-100">
-          The Voices{' '}
-          <span className="font-script gradient-text">Behind</span>
+          {copy.testimonials.titleMain}{' '}
+          <span className="font-script gradient-text">{copy.testimonials.titleAccent}</span>
         </h2>
       </MotionDiv>
 
@@ -72,4 +75,5 @@ function TestimonialsSection() {
 }
 
 export default TestimonialsSection
+
 

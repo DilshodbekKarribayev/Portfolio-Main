@@ -1,13 +1,15 @@
-﻿import { motion } from 'motion/react'
-import { skillset } from '../../data/siteData'
+import { motion } from 'motion/react'
 import { fadeUp } from '../../lib/animations'
 import SkillChip from '../ui/SkillChip'
 import SkillOrbCanvas from '../ui/SkillOrbCanvas'
 import SplitReveal from '../ui/SplitReveal'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 
 function SkillsSection() {
+  const { copy, skillset } = useI18n()
+
   return (
     <MotionSection
       variants={fadeUp}
@@ -22,12 +24,12 @@ function SkillsSection() {
           <SkillOrbCanvas size={250} className="mx-auto" />
         </div>
 
-        <p className="section-subtitle mb-4">Core Stack</p>
+        <p className="section-subtitle mb-4">{copy.skills.subtitle}</p>
 
         <h2 className="section-title text-zinc-100">
-          <SplitReveal text="Tooling and craft" as="span" className="block" />
+          <SplitReveal text={copy.skills.titleLine1} as="span" className="block" />
           <span className="font-script gradient-text">
-            <SplitReveal text="behind every build" as="span" delay={0.15} />
+            <SplitReveal text={copy.skills.titleLine2} as="span" delay={0.15} />
           </span>
         </h2>
 
@@ -42,5 +44,6 @@ function SkillsSection() {
 }
 
 export default SkillsSection
+
 
 

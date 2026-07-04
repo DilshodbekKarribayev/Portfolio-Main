@@ -1,17 +1,19 @@
 import { motion } from 'motion/react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Code2, Cpu, Zap, Linkedin, Github, Twitter } from 'lucide-react'
-import { aboutText, socialLinks } from '../../data/siteData'
 import { fadeUp, staggerContainer, fadeUpChild } from '../../lib/animations'
 import { publicAsset } from '../../lib/publicAsset'
 import ProfileCard from '../ui/ProfileCard'
 import SplitReveal from '../ui/SplitReveal'
+import { useI18n } from '../../i18n/useI18n.js'
 // Place your avatar image in public/brand/ and reference it like '/brand/avatar.jpg'
 
 const MotionSection = motion.section
 const MotionDiv = motion.div
 
 function AboutSection() {
+  const { copy, socialLinks } = useI18n()
+
   const handleProfileContact = () => {
     const contactSection = document.getElementById('contact')
     if (contactSection) {
@@ -32,11 +34,11 @@ function AboutSection() {
       id="about"
     >
       <MotionDiv variants={fadeUp} className="mb-10 w-full text-center lg:mb-14">
-        <p className="section-subtitle mb-4">A Quick Glance</p>
+        <p className="section-subtitle mb-4">{copy.about.subtitle}</p>
         <h2 className="section-title text-zinc-100">
-          <SplitReveal text="Building modern and" as="span" className="block" />
+          <SplitReveal text={copy.about.titleLine1} as="span" className="block" />
           <span className="font-script gradient-text">
-            <SplitReveal text="useful web experiences" as="span" delay={0.12} />
+            <SplitReveal text={copy.about.titleLine2} as="span" delay={0.12} />
           </span>
         </h2>
       </MotionDiv>
@@ -55,11 +57,11 @@ function AboutSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Available for new projects
+              {copy.about.available}
             </div>
 
             <div className="space-y-6 text-[1rem] leading-[1.78] text-zinc-400 md:text-[1.06rem]">
-              {aboutText.paragraphs.map((p, i) => (
+              {copy.aboutText.paragraphs.map((p, i) => (
                 <p key={i} className="max-w-[64ch]">
                   {p}
                 </p>
@@ -84,7 +86,7 @@ function AboutSection() {
               to="/#contact"
               className="group/btn flex items-center gap-2 rounded-full bg-zinc-100 px-6 py-3 text-sm font-bold text-zinc-900 transition-all hover:bg-white"
             >
-              Start a conversation
+              {copy.about.cta}
               <ArrowUpRight size={16} className="transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
             </Link>
           </div>
@@ -102,8 +104,8 @@ function AboutSection() {
                 name="Dilshodbek Karribayev"
                 title=""
                 handle="karribayev_004"
-                status="Available for new projects"
-                contactText="Contact Me"
+                status={copy.about.profileStatus}
+                contactText={copy.about.contactMe}
                 avatarUrl={publicAsset('/portfolioPhoto.jpg')}
                 showUserInfo={true}
                 enableTilt={true}
@@ -118,7 +120,7 @@ function AboutSection() {
           </div>
           <div className="absolute bottom-6 left-6 z-20">
             <p className="text-sm font-bold tracking-wide text-zinc-100">DILIABLE</p>
-            <p className="text-xs text-zinc-400">Full Stack Engineer</p>
+            <p className="text-xs text-zinc-400">{copy.about.role}</p>
           </div>
         </MotionDiv>
 
@@ -129,15 +131,15 @@ function AboutSection() {
           <div className="grid grid-cols-3 gap-4 divide-x divide-zinc-800/60 text-center">
             <div className="flex flex-col items-center gap-2">
               <Code2 size={24} className="text-emerald-400" strokeWidth={1.5} />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Clean Code</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">{copy.about.traits[0]}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Cpu size={24} className="text-blue-400" strokeWidth={1.5} />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Fast Performance</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">{copy.about.traits[1]}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Zap size={24} className="text-amber-400" strokeWidth={1.5} />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Responsive UI</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">{copy.about.traits[2]}</span>
             </div>
           </div>
         </MotionDiv>
@@ -147,4 +149,5 @@ function AboutSection() {
 }
 
 export default AboutSection
+
 

@@ -1,85 +1,14 @@
 import { motion } from 'motion/react'
 import { BriefcaseBusiness, CalendarDays, CheckCircle2, GraduationCap, MapPin } from 'lucide-react'
 import { fadeUp } from '../../lib/animations'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 
-const experienceTimeline = [
-  {
-    id: 'foundation-data-analyst',
-    label: 'Foundation',
-    organization: 'Innovation Company',
-    role: 'Trainee Data Analyst',
-    period: 'Nov 2021 - Aug 2022',
-    location: 'Uzbekistan',
-    points: [
-      'Started as a Data Analytics trainee.',
-      'Learned SQL, database management, and business reporting.',
-      'Worked with real datasets and analytical tasks.',
-      'Built practical experience in data processing and visualization.',
-    ],
-  },
-  {
-    id: 'promotion-senior-data-analyst',
-    label: 'Promotion',
-    organization: 'Innovation Company',
-    role: 'Senior Data Analyst',
-    period: 'Sep 2022 - Mar 2023',
-    location: 'Uzbekistan',
-    points: [
-      'Promoted to Senior Data Analyst.',
-      'Developed SQL queries for business reporting.',
-      'Designed interactive dashboards using Power BI.',
-      'Improved data quality and reporting efficiency.',
-      'Collaborated with teams to support business decisions.',
-    ],
-  },
-  {
-    id: 'industry-mdf-manufacturing',
-    label: 'Industry Experience',
-    organization: 'MDF Door Manufacturing',
-    role: 'Production & Technical Specialist',
-    period: 'Jan 2026 - Jul 2026',
-    location: 'Uzbekistan',
-    points: [
-      'Worked in modern MDF door manufacturing.',
-      'Participated in production planning and quality control.',
-      'Gained practical experience with manufacturing equipment.',
-      'Improved workflow efficiency and technical processes.',
-      'Strengthened knowledge of industrial production systems.',
-    ],
-  },
-  {
-    id: 'current-tuit',
-    label: 'Current',
-    organization: 'Tashkent University of Information Technologies (TUIT), Urgench Branch',
-    role: 'Telecommunications Engineering Student',
-    period: '2022 - Present',
-    location: 'Urgench, Uzbekistan',
-    points: [
-      'Studying Telecommunications Technologies.',
-      'Developing embedded systems and hardware solutions.',
-      'Building web applications and engineering projects.',
-      'Participating in startup competitions and innovation programs.',
-      'Expanding knowledge in networking, IoT, automation, and product development.',
-    ],
-  },
-  {
-    id: 'achievement-startup-winner',
-    label: 'Achievement',
-    organization: 'National Startup Competition',
-    role: 'Winner',
-    period: '2025',
-    location: 'Uzbekistan',
-    points: [
-      'Developed an innovative technology project.',
-      'Presented the solution before a national jury.',
-      'Successfully became a national-level winner.',
-    ],
-  },
-]
-
 function BlogsSection() {
+  const { copy } = useI18n()
+  const experienceTimeline = copy.experience.items
+
   return (
     <MotionSection
       variants={fadeUp}
@@ -90,9 +19,9 @@ function BlogsSection() {
       id="experience"
     >
       <div className="mb-12 text-center">
-        <p className="section-subtitle mb-4">Experience</p>
+        <p className="section-subtitle mb-4">{copy.experience.subtitle}</p>
         <h2 className="section-title text-zinc-100">
-          Career <span className="font-script gradient-text">timeline</span>
+          {copy.experience.titleMain} <span className="font-script gradient-text">{copy.experience.titleAccent}</span>
         </h2>
       </div>
 
@@ -100,10 +29,10 @@ function BlogsSection() {
         <div className="border-b border-zinc-800/80 bg-gradient-to-r from-zinc-900/85 via-zinc-900/60 to-zinc-900/35 px-6 py-6 sm:px-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-950/65 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
             <GraduationCap size={13} className="text-blue-300" />
-            Experience
+            {copy.experience.badge}
           </div>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400 sm:text-base">
-            Education, work experience, achievements, and technical growth in one clear professional path.
+            {copy.experience.intro}
           </p>
         </div>
 
@@ -130,7 +59,7 @@ function BlogsSection() {
                     {item.id === 'current-tuit' ? (
                       <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200">
                         <BriefcaseBusiness size={12} />
-                        Active
+                        {copy.experience.active}
                       </span>
                     ) : null}
                   </div>
@@ -168,3 +97,4 @@ function BlogsSection() {
 }
 
 export default BlogsSection
+

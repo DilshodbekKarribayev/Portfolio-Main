@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, BriefcaseBusiness, Github, Linkedin, Music, GitBranch, Pause, Play } from 'lucide-react'
 import { socialLinks } from '../../data/siteData'
 import { fadeUp, staggerContainer, fadeUpChild } from '../../lib/animations'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 const MotionDiv = motion.div
@@ -12,23 +13,16 @@ const MotionLink = motion(Link)
 const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME || 'XayrulloWeb'
 const GITHUB_PUSH_CACHE_KEY = `github-latest-push-${GITHUB_USERNAME}`
 const GITHUB_PUSH_CACHE_TTL = 1000 * 60 * 15
-const FALLBACK_PUSH = {
-  message: 'feat: add resilient contact CTA flow and section telemetry hooks.',
-  repo: 'private-workbench',
-  repoFullName: 'XayrulloWeb/private-workbench',
-  pushedAt: '2026-03-10T09:15:00+05:30',
-  commitUrl: socialLinks.github,
-}
 
-function getRelativeTimeLabel(date) {
+function getRelativeTimeLabel(date, labels) {
   const diffMs = Date.now() - date.getTime()
   const totalMinutes = Math.max(1, Math.floor(diffMs / 60000))
 
-  if (totalMinutes < 60) return `${totalMinutes}m ago`
+  if (totalMinutes < 60) return `${totalMinutes}${labels.minute.startsWith('m') ? '' : ' '}${labels.minute}`
   const hours = Math.floor(totalMinutes / 60)
-  if (hours < 24) return `${hours}h ago`
+  if (hours < 24) return `${hours}${labels.hour.startsWith('h') ? '' : ' '}${labels.hour}`
   const days = Math.floor(hours / 24)
-  return `${days}d ago`
+  return `${days}${labels.day.startsWith('d') ? '' : ' '}${labels.day}`
 }
 
 function extractLatestPush(events) {
@@ -77,16 +71,22 @@ function extractLatestPushFromRepo(repo, commit) {
 }
 
 function BehindCurtains() {
+  const { copy, locale } = useI18n()
   const shouldReduceMotion = useReducedMotion()
   const audioRef = useRef(null)
-  const [latestPush, setLatestPush] = useState(FALLBACK_PUSH)
+  const fallbackPush = useMemo(() => ({
+    ...copy.behind.fallbackPush,
+    pushedAt: '2026-03-10T09:15:00+05:30',
+    commitUrl: socialLinks.github,
+  }), [copy.behind.fallbackPush])
+  const [latestPush, setLatestPush] = useState(fallbackPush)
   const [isTrackPlaying, setIsTrackPlaying] = useState(false)
   const [trackProgress, setTrackProgress] = useState(0)
   const [trackError, setTrackError] = useState(false)
   const [trackSrc, setTrackSrc] = useState('')
   const [isTrackLoading, setIsTrackLoading] = useState(false)
   const [relativeLabel, setRelativeLabel] = useState(() =>
-    getRelativeTimeLabel(new Date(FALLBACK_PUSH.pushedAt)),
+    getRelativeTimeLabel(new Date(fallbackPush.pushedAt), copy.behind.relative),
   )
 
   useEffect(() => {
@@ -185,13 +185,13 @@ function BehindCurtains() {
 
   useEffect(() => {
     const refreshRelativeLabel = () => {
-      setRelativeLabel(getRelativeTimeLabel(new Date(latestPush.pushedAt)))
+      setRelativeLabel(getRelativeTimeLabel(new Date(latestPush.pushedAt), copy.behind.relative))
     }
 
     refreshRelativeLabel()
     const timer = window.setInterval(refreshRelativeLabel, 60000)
     return () => window.clearInterval(timer)
-  }, [latestPush.pushedAt])
+  }, [copy.behind.relative, latestPush.pushedAt])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -278,12 +278,12 @@ function BehindCurtains() {
 
   const latestPushDate = useMemo(
     () =>
-      new Intl.DateTimeFormat('en-US', {
+      new Intl.DateTimeFormat(locale, {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
       }).format(new Date(latestPush.pushedAt)),
-    [latestPush.pushedAt],
+    [latestPush.pushedAt, locale],
   )
 
   return (
@@ -295,11 +295,11 @@ function BehindCurtains() {
       className="mx-auto flex w-full max-w-[1320px] flex-col justify-center px-4 py-20 md:px-7 lg:py-28"
     >
       <MotionDiv variants={fadeUp} className="mb-14 text-center">
-        <p className="section-subtitle mb-4">Behind The Curtains</p>
+        <p className="section-subtitle mb-4">{copy.behind.subtitle}</p>
         <h2 className="section-title text-zinc-100">
-          Decoding logic
+          {copy.behind.titleLine1}
           <br />
-          <span className="font-script gradient-text">and the lyrics</span>
+          <span className="font-script gradient-text">{copy.behind.titleLine2}</span>
         </h2>
       </MotionDiv>
 
@@ -318,7 +318,7 @@ function BehindCurtains() {
 
           <div className="mb-8 flex-1">
             <div className="mb-4 flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Latest push</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">{copy.behind.latestPush}</span>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-900/60 bg-emerald-950/40 px-2.5 py-0.5 text-[10px] font-bold tracking-wide text-emerald-400">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                 {relativeLabel}
@@ -333,7 +333,7 @@ function BehindCurtains() {
               {latestPush.message}
             </a>
             <p className="mt-3 font-mono text-[11px] text-zinc-500">
-              Repo:{' '}
+              {copy.behind.repo}{' '}
               <a
                 href={`https://github.com/${latestPush.repoFullName}`}
                 target="_blank"
@@ -343,7 +343,7 @@ function BehindCurtains() {
                 {latestPush.repo}
               </a>
               <br />
-              Updated: {latestPushDate}
+              {copy.behind.updated} {latestPushDate}
             </p>
           </div>
 
@@ -364,16 +364,16 @@ function BehindCurtains() {
               <BriefcaseBusiness size={18} className="text-zinc-300" />
             </div>
             <h3 className="text-[2rem] font-black leading-[1.1] tracking-tight text-zinc-100">
-              Current
+              {copy.behind.current}
               <br />
-              <span className="font-script gradient-text">focus</span>
+              <span className="font-script gradient-text">{copy.behind.focus}</span>
             </h3>
             <p className="mt-4 text-[0.95rem] text-zinc-400">
-              Building production interfaces at <span className="text-zinc-200">Unusual</span> with a frontend-first workflow.
+              {copy.behind.focusText}
             </p>
             <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-900/60 bg-emerald-950/35 px-3 py-1 text-[11px] font-semibold text-emerald-300">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              Active now
+              {copy.behind.activeNow}
             </div>
           </div>
 
@@ -416,7 +416,7 @@ function BehindCurtains() {
               whileHover={shouldReduceMotion ? undefined : { scale: 1.04, x: 2 }}
               whileTap={{ scale: 0.98 }}
             >
-              View work
+              {copy.behind.viewWork}
               <ArrowUpRight size={14} />
             </MotionLink>
           </div>
@@ -433,7 +433,7 @@ function BehindCurtains() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-950/50 text-emerald-400">
                   <Music size={18} />
                 </div>
-                <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">Now Playing</h3>
+                <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-400">{copy.behind.nowPlaying}</h3>
                 <div className="flex items-end gap-1.5">
                   {[16, 24, 12, 20].map((h, i) => (
                     <motion.span
@@ -454,7 +454,7 @@ function BehindCurtains() {
               <div className="space-y-1">
                 <p className="text-lg font-bold tracking-tight text-zinc-100">8 Milya</p>
                 <p className="text-sm text-zinc-400">Miyagi & Endshpil</p>
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 pt-2">Track highlight</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-600 pt-2">{copy.behind.trackHighlight}</p>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -466,21 +466,21 @@ function BehindCurtains() {
                     className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-500/20"
                   >
                     <Play size={14} />
-                    {isTrackLoading ? 'Loading...' : 'Play'}
+                    {isTrackLoading ? copy.behind.loading : copy.behind.play}
                   </button>
                 ) : null}
                 <span className="inline-flex items-center rounded-full border border-zinc-700/80 bg-zinc-900/70 px-3.5 py-1.5 text-xs font-semibold text-zinc-400">
-                  Local MP3 mode
+                  {copy.behind.localMp3Mode}
                 </span>
               </div>
               {trackError ? (
                 <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-amber-300">
-                  Audio file could not be played
+                  {copy.behind.audioError}
                 </p>
               ) : null}
 
               <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-zinc-500">
-                Animations run only while music is playing
+                {copy.behind.animationNote}
               </p>
               </div>
 
@@ -523,7 +523,7 @@ function BehindCurtains() {
           className="fixed bottom-5 right-20 z-[110] inline-flex items-center gap-2 rounded-full border border-emerald-500/45 bg-zinc-950/90 px-4 py-2 text-xs font-semibold text-emerald-300 shadow-[0_10px_30px_rgba(0,0,0,0.45)] backdrop-blur-md transition hover:bg-zinc-900"
         >
           <Pause size={14} />
-          Pause 8 Milya
+          {copy.behind.pauseTrack}
         </button>
       ) : null}
     </MotionSection>
@@ -531,3 +531,4 @@ function BehindCurtains() {
 }
 
 export default BehindCurtains
+

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Layers3, MapPin, RefreshCw } from 'lucide-react'
 import { fadeUp } from '../../lib/animations'
 import Particles from '../ui/Particles'
+import { useI18n } from '../../i18n/useI18n.js'
 
 const MotionSection = motion.section
 const MotionH1 = motion.h1
@@ -39,6 +40,7 @@ function getInitialReloadCount() {
 }
 
 function HeroSection() {
+  const { copy } = useI18n()
   const sectionRef = useRef(null)
   const [reloadCount] = useState(getInitialReloadCount)
 
@@ -93,14 +95,14 @@ function HeroSection() {
             className="flex flex-col items-center"
           >
             <p className="hero-owner mt-7 text-zinc-200">
-              Dilshodbek Karribayev
+              {copy.hero.owner}
             </p>
             <p
               className="hero-disciplines mt-4 text-zinc-500"
-              aria-label="Data, Hardware, Embedded, Design, Web, Innovation"
+              aria-label={copy.hero.disciplinesAria}
             >
-              <span>Data</span><span>Hardware</span><span>Embedded</span><span>Design</span><span>Web</span><span>Innovation</span>
-              DATA • HARDWARE • EMBEDDED • DESIGN
+              {copy.hero.disciplines.map((item) => <span key={item}>{item}</span>)}
+              {copy.hero.disciplinesLine}
             </p>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -108,7 +110,7 @@ function HeroSection() {
                 to="/work"
                 className="group inline-flex items-center justify-center rounded-full bg-zinc-100 px-7 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950 shadow-[0_18px_45px_rgba(0,0,0,0.65)] transition hover:-translate-y-0.5 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
-                View work
+                {copy.hero.viewWork}
                 <span className="ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-zinc-900 text-[9px] text-zinc-100 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   {'->'}
                 </span>
@@ -117,15 +119,15 @@ function HeroSection() {
                 to="/#contact"
                 className="inline-flex items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-900/70 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-200 shadow-[0_16px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-zinc-500 hover:text-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
-                Get in touch
+                {copy.hero.getInTouch}
               </Link>
             </div>
 
-            <div className="hero-reload-counter mt-7" aria-label={`Reload count ${reloadCount}`}>
+            <div className="hero-reload-counter mt-7" aria-label={`${copy.hero.reloadCount} ${reloadCount}`}>
               <span className="hero-reload-icon" aria-hidden="true">
                 <RefreshCw size={13} />
               </span>
-              <span className="hero-reload-label">Reload count</span>
+              <span className="hero-reload-label">{copy.hero.reloadCount}</span>
               <span className="hero-reload-value">{String(reloadCount).padStart(3, '0')}</span>
             </div>
           </MotionDiv>
@@ -134,13 +136,13 @@ function HeroSection() {
         <div className="flex items-end justify-between text-[11px] uppercase tracking-wider text-zinc-400 sm:text-[13px]">
           <div>
             <MapPin size={14} className="mb-1.5 text-emerald-400" />
-            <p className="font-semibold">Based in Urgench,</p>
-            <p className="text-zinc-600">Uzbekistan</p>
+            <p className="font-semibold">{copy.hero.locationLine1}</p>
+            <p className="text-zinc-600">{copy.hero.locationLine2}</p>
           </div>
           <div className="text-right">
             <Layers3 size={14} className="mb-1.5 ml-auto text-blue-400" />
-            <p className="font-semibold">FULL STACK TECHNOLOGY</p>
-            <p className="text-zinc-600">ENGINEER</p>
+            <p className="font-semibold">{copy.hero.roleLine1}</p>
+            <p className="text-zinc-600">{copy.hero.roleLine2}</p>
           </div>
         </div>
       </div>
@@ -149,3 +151,5 @@ function HeroSection() {
 }
 
 export default HeroSection
+
+
