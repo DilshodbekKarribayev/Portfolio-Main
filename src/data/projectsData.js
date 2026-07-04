@@ -231,7 +231,10 @@ export const projects = [
       'SwiftUI mobile interface design',
       'Testing and optimization'
     ],
-    gallery: [{ key: 'shot-1', title: 'Mobile app login', src: publicAsset('/projects/smart-gas-controller.png') }],
+    gallery: [
+      { key: 'shot-1', title: 'Mobile app login', src: publicAsset('/projects/smart-gas-controller.png') },
+      { key: 'shot-2', title: 'Xcode control screen', src: publicAsset('/projects/smart-gas-controller-xcode.png') }
+    ],
     tags: ['ESP32', 'Arduino', 'SwiftUI', 'IoT', 'Smart Home', 'Embedded C++']
   },
   {

@@ -957,7 +957,10 @@ const UZ_PROJECT_COPY = {
       'SwiftUI mobil interfeys dizayni',
       'Testlash va optimallashtirish',
     ],
-    gallery: [{ title: 'Mobil ilova login' }],
+    gallery: [
+      { title: 'Mobil ilova login' },
+      { title: 'Xcode boshqaruv ekrani' },
+    ],
   },
   'smart-access-control': {
     cta: "Tafsilotlarni ko'rish",
