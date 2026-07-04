@@ -85,7 +85,7 @@ function PreviewMedia({ src, title, label }) {
     return (
       <video
         src={src}
-        className="h-full w-full object-cover"
+        className="h-full w-full "
         autoPlay
         muted
         loop
@@ -101,7 +101,7 @@ function PreviewMedia({ src, title, label }) {
       <img
         src={src}
         alt={`${title} ${label}`}
-        className="h-full w-full object-cover"
+        className="h-full w-full "
         loading="lazy"
         decoding="async"
       />

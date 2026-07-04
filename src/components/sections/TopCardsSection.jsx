@@ -32,7 +32,7 @@ function languageUsesAmPm(locale) {
 function ProjectPhoneScreen({ src, alt, label }) {
   return (
     <div className="relative h-full w-full overflow-hidden bg-[radial-gradient(circle_at_20%_20%,rgba(244,114,182,0.14),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(96,165,250,0.12),transparent_45%),linear-gradient(165deg,#111827,#0a0f1a)]">
-      <img src={src} alt={alt} className="h-full w-full object-cover object-top" loading="lazy" />
+      <img src={src} alt={alt} className="h-full w-full  object-top" loading="lazy" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/42 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent" />
       <span className="absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-zinc-700/80 bg-zinc-900/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-300 shadow-[0_10px_24px_rgba(0,0,0,0.35)]">
