@@ -1,4 +1,4 @@
-import { BookOpen, Bot, Cpu, Globe2, ShieldCheck } from 'lucide-react'
+import { BookOpen, Bot, BusFront, Cpu, Flame, Globe2, ShieldCheck } from 'lucide-react'
 
 const iconMap = {
   web: {
@@ -35,6 +35,16 @@ const iconMap = {
     label: 'Security project',
     className: 'text-blue-300 border-blue-400/25 bg-blue-400/10',
     render: () => <ShieldCheck size={20} />,
+  },
+  transit: {
+    label: 'Transit project',
+    className: 'text-emerald-300 border-emerald-400/25 bg-emerald-400/10',
+    render: () => <BusFront size={20} />,
+  },
+  safety: {
+    label: 'Safety project',
+    className: 'text-red-300 border-red-400/25 bg-red-400/10',
+    render: () => <Flame size={20} />,
   },
 }
 

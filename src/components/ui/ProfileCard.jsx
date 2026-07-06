@@ -472,7 +472,7 @@ const ProfileCardComponent = ({
                 }}
               >
                 <img
-                  className="h-full w-full object-cover transition-transform duration-[120ms] ease-out"
+                  className="h-full w-full object-contain transition-transform duration-[120ms] ease-out"
                   src={avatarUrl}
                   alt={`${name || 'User'} avatar`}
                   loading="lazy"
@@ -508,7 +508,7 @@ const ProfileCardComponent = ({
                       style={{ width: '48px', height: '48px' }}
                     >
                       <img
-                        className="h-full w-full rounded-full object-cover"
+                        className="h-full w-full rounded-full object-contain"
                         src={miniAvatarUrl || avatarUrl}
                         alt={`${name || 'User'} mini avatar`}
                         loading="lazy"

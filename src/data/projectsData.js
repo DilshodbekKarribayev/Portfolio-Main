@@ -281,5 +281,95 @@ export const projects = [
     ],
     gallery: [{ key: 'shot-1', title: 'HR overview', src: publicAsset('/projects/HR.png') }],
     tags: ['ESP32-S3', 'Fingerprint', 'Camera', 'Wi-Fi', 'Google Sheets', 'Embedded C++']
+  },
+  {
+    id: 'smart-bus-display',
+    name: 'Smart Bus Display',
+    icon: 'transit',
+    emoji: 'BUS',
+    color: 'green',
+    href: '/work/smart-bus-display',
+    cta: 'View details',
+    tagline: 'A smart LED bus stop information system with real-time clock and arrival countdowns.',
+    timeline: '2026',
+    projectType: 'IoT & Embedded Systems',
+    role: 'Hardware & Embedded Systems Developer',
+    liveUrl: null,
+    githubUrl: null,
+    collaborators: [{ name: 'DiliAble', role: 'Hardware, Embedded Software & LED Display Integration' }],
+    description: 'Smart Bus Information Display is a real-time digital bus stop display designed to show current time and estimated arrival times for two buses. The system provides passengers with clear, accurate, and easy-to-read information using high-brightness LED displays, making it suitable for both day and night operation.',
+    problem: 'Passengers at bus stops need clear real-time information about current time and upcoming bus arrivals, especially in low-light or outdoor conditions.',
+    outcome: 'Built a smart LED display concept with real-time clock output, two bus arrival countdowns, Wi-Fi synchronization, ESP32 control, and outdoor-ready visibility.',
+    features: [
+      'Real-time clock display',
+      'Two bus arrival countdowns',
+      'High-brightness outdoor LED display',
+      'Automatic time synchronization',
+      'Low power consumption',
+      'Weather-resistant enclosure',
+      'Easy configuration via Wi-Fi',
+      'Suitable for smart bus stations'
+    ],
+    deviceScreens: { desktop: publicAsset('/projects/smart-bus-display.png') },
+    responsibilities: [
+      'Designed the display system concept',
+      'Planned ESP32 controller logic',
+      'Integrated LED display timing flow',
+      'Configured real-time clock behavior',
+      'Prepared the system for outdoor station use'
+    ],
+    process: [
+      'System planning',
+      'ESP32 controller setup',
+      'RTC module integration',
+      'LED display layout',
+      'Outdoor visibility testing'
+    ],
+    gallery: [{ key: 'shot-1', title: 'Bus stop LED display', src: publicAsset('/projects/smart-bus-display.png') }],
+    tags: ['ESP32', 'LED Matrix', 'RTC Module', 'Wi-Fi', 'Embedded C++', 'Smart Station']
+  },
+  {
+    id: 'emergency-safety-monitoring',
+    name: 'Emergency Safety Monitoring System',
+    icon: 'safety',
+    emoji: 'SAFE',
+    color: 'red',
+    href: '/work/emergency-safety-monitoring',
+    cta: 'View details',
+    tagline: 'ESP32-based emergency monitoring device for gas, smoke, flame, and alarm detection.',
+    timeline: '2026',
+    projectType: 'IoT Safety System',
+    role: 'Hardware & Embedded Systems Developer',
+    liveUrl: null,
+    githubUrl: null,
+    collaborators: [{ name: 'DiliAble', role: 'Hardware, Embedded Software & Sensor Integration' }],
+    description: 'ESP32-based Emergency Monitoring System is an intelligent safety device designed to detect hazardous situations in real time. It combines gas leak detection, smoke monitoring, flame sensing, and audible alarm functions to provide early warning and improve emergency response in homes, offices, and industrial environments.',
+    problem: 'Homes, offices, and industrial spaces need compact and reliable safety monitoring that can detect gas leaks, smoke, carbon monoxide, and flame events early enough for a fast emergency response.',
+    outcome: 'Created an emergency safety monitoring prototype with ESP32 processing, MQ-6 and MQ-7 gas sensors, flame detection, buzzer warning, and a compact enclosure for practical installation.',
+    features: [
+      'LPG and natural gas leak detection',
+      'Carbon monoxide and smoke monitoring',
+      'Instant flame detection for fire emergencies',
+      'High-volume buzzer alarm for immediate warning',
+      'ESP32 microcontroller for fast and reliable processing',
+      'Compact enclosure for easy installation and maintenance'
+    ],
+    deviceScreens: { desktop: publicAsset('/projects/MCHS.png') },
+    responsibilities: [
+      'Designed the sensor monitoring architecture',
+      'Integrated MQ-6 and MQ-7 gas sensors',
+      'Connected flame sensing and buzzer alarm logic',
+      'Planned ESP32 embedded processing flow',
+      'Assembled the compact safety enclosure'
+    ],
+    process: [
+      'Safety system planning',
+      'Sensor module integration',
+      'ESP32 firmware logic',
+      'Alarm response testing',
+      'Prototype enclosure assembly'
+    ],
+    gallery: [{ key: 'shot-1', title: 'Emergency monitor prototype', src: publicAsset('/projects/MCHS.png') }],
+    tags: ['ESP32', 'MQ-6', 'MQ-7', 'Flame Sensor', 'Buzzer', 'Embedded C++']
   }
 ]

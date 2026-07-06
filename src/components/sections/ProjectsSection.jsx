@@ -13,6 +13,7 @@ const colorAccents = {
   red: { main: '#ef4444', glow: 'rgba(239, 68, 68, 0.22)', soft: 'rgba(239, 68, 68, 0.06)' },
   orange: { main: '#f97316', glow: 'rgba(249, 115, 22, 0.22)', soft: 'rgba(249, 115, 22, 0.06)' },
   blue: { main: '#3b82f6', glow: 'rgba(59, 130, 246, 0.22)', soft: 'rgba(59, 130, 246, 0.06)' },
+  green: { main: '#22c55e', glow: 'rgba(34, 197, 94, 0.22)', soft: 'rgba(34, 197, 94, 0.06)' },
 }
 
 const PIN_SCROLL_LENGTH_DESKTOP = '+=220%'

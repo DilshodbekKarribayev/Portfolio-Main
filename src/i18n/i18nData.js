@@ -999,6 +999,80 @@ const UZ_PROJECT_COPY = {
     ],
     gallery: [{ title: 'HR overview' }],
   },
+  'smart-bus-display': {
+    cta: "Tafsilotlarni ko'rish",
+    tagline: "Real-time soat va avtobus kelish countdown'larini ko'rsatadigan smart LED bekat axborot tizimi.",
+    projectType: 'IoT va Embedded tizimlar',
+    role: 'Hardware va Embedded Systems Developer',
+    collaborators: [{ role: 'Hardware, Embedded Software va LED display integratsiyasi' }],
+    description:
+      "Smart Bus Information Display - ikki avtobus uchun joriy vaqt va taxminiy kelish vaqtlarini ko'rsatadigan real-time raqamli avtobus bekati displeyi. Yuqori yorqinlikdagi LED display yo'lovchilarga kunduz va tunda ham aniq, oson o'qiladigan ma'lumot beradi.",
+    problem:
+      "Bekatdagi yo'lovchilarga hozirgi vaqt va yaqin avtobuslar kelishi haqida aniq real-time ma'lumot kerak, ayniqsa tashqi muhit yoki past yorug'lik sharoitida.",
+    outcome:
+      "Real-time clock, ikki avtobus countdown'i, Wi-Fi synchronization, ESP32 control va outdoor-ready ko'rinishga ega smart LED display konsepti yaratildi.",
+    features: [
+      "Real-time soat ko'rsatkichi",
+      '2 ta avtobus kelish taymeri',
+      'Yuqori yorqinlikdagi tashqi LED display',
+      'Avtomatik vaqt sinxronizatsiyasi',
+      'Kam quvvat sarfi',
+      'Ob-havoga chidamli korpus',
+      'Wi-Fi orqali oson sozlash',
+      'Smart bus station uchun mos',
+    ],
+    responsibilities: [
+      'Display tizimi konseptini loyihalash',
+      'ESP32 controller logikasini rejalash',
+      'LED display timing flow integratsiyasi',
+      'Real-time clock ishlashini sozlash',
+      'Tizimni tashqi bekat ishlatishiga tayyorlash',
+    ],
+    process: [
+      'Tizim rejalash',
+      'ESP32 controller sozlash',
+      'RTC module integratsiyasi',
+      'LED display layout',
+      "Tashqi ko'rinish va yorqinlik testi",
+    ],
+    gallery: [{ title: 'Avtobus bekati LED displeyi' }],
+  },
+  'emergency-safety-monitoring': {
+    cta: "Tafsilotlarni ko'rish",
+    tagline: 'Gaz, tutun, olov va signal holatlarini aniqlaydigan ESP32 asosidagi emergency monitoring qurilmasi.',
+    projectType: 'IoT xavfsizlik tizimi',
+    role: 'Hardware va Embedded Systems Developer',
+    collaborators: [{ role: 'Hardware, Embedded Software va sensor integratsiyasi' }],
+    description:
+      "ESP32-based Emergency Monitoring System - xavfli vaziyatlarni real vaqtda aniqlash uchun mo'ljallangan aqlli xavfsizlik qurilmasi. U gaz sizib chiqishini aniqlash, tutun monitoringi, olov sensori va ovozli signal funksiyalarini birlashtirib, uy, ofis va sanoat muhitida erta ogohlantirish va tezkor emergency response imkonini yaxshilaydi.",
+    problem:
+      "Uylar, ofislar va sanoat joylari gaz sizishi, tutun, karbon monoksid va olov holatlarini erta aniqlaydigan ixcham va ishonchli xavfsizlik monitoringiga muhtoj.",
+    outcome:
+      "ESP32 processing, MQ-6 va MQ-7 gaz sensorlari, flame detection, buzzer warning va amaliy o'rnatish uchun ixcham enclosure'ga ega emergency safety monitoring prototipi yaratildi.",
+    features: [
+      'LPG va tabiiy gaz sizishini aniqlash',
+      'Karbon monoksid va tutun monitoringi',
+      'Yong‘in favqulodda holatlari uchun darhol olov aniqlash',
+      'Tezkor ogohlantirish uchun baland ovozli buzzer alarm',
+      'Tez va ishonchli processing uchun ESP32 microcontroller',
+      "Oson o'rnatish va maintenance uchun ixcham enclosure",
+    ],
+    responsibilities: [
+      'Sensor monitoring arxitekturasini loyihalash',
+      'MQ-6 va MQ-7 gaz sensorlarini integratsiya qilish',
+      'Flame sensing va buzzer alarm logikasini ulash',
+      'ESP32 embedded processing flow rejalash',
+      "Ixcham safety enclosure yig'ish",
+    ],
+    process: [
+      'Safety system rejalash',
+      'Sensor module integratsiyasi',
+      'ESP32 firmware logikasi',
+      'Alarm response testlash',
+      'Prototype enclosure assembly',
+    ],
+    gallery: [{ title: 'Emergency monitor prototipi' }],
+  },
 }
 
 export function getSupportedLanguage(language) {
